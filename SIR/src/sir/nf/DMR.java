@@ -21,9 +21,20 @@ public class DMR {
         this.patient = patient;
         this.listExamens = new ArrayList<Examen>();
     }
-    
+    /**
+     * 
+     * @ajoute un examen au DMR 
+     */
     public void ajouterExamen (Examen examen){
         listExamens.add(examen);
         
     }
+
+    /**
+     * @return le patient
+     */
+    public Patient getPatient() {
+        return patient;
+    }
+    
 }

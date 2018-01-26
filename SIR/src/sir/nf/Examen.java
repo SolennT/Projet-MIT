@@ -38,7 +38,10 @@ public class Examen {
     public String getReport() {
         return report;
     }
-    
+    /**
+     * 
+     * @ajoute un compte-rendu si il n'y en pas
+     */
     public void EcrireCR(String cr){
         if (this.report == null){
             report = cr;
