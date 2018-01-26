@@ -12,6 +12,7 @@ import java.util.ArrayList;
  *
  * @author axelm
  */
+
 public class DMR {
     private ArrayList<Examen> listExamens;
     private Patient patient;

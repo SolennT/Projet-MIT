@@ -24,8 +24,26 @@ public class Examen {
         this.prescripteur = prescripteur;
         this.responsableRadio = responsableRadio;
     }
+
+    /**
+     * @return the pacsID
+     */
+    public String getPacsID() {
+        return pacsID;
+    }
+
+    /**
+     * @return the report
+     */
+    public String getReport() {
+        return report;
+    }
     
-    
+    public void EcrireCR(String cr){
+        if (this.report == null){
+            report = cr;
+        }
+    }
     
 }
 
