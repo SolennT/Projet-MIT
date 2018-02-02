@@ -7,6 +7,7 @@ package sir.nf;
 
 import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
+import sir.ui.Connexion;
 
 /**
  *
@@ -23,8 +24,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Login l = new Login();
-        l.setVisible(true);
+        Connexion c = new Connexion();
+        c.setVisible(true);
 //        Menu menu;
 //            setLogged(l.getLogged());
 //        if( isLogged()){
