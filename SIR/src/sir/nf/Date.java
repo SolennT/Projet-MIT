@@ -30,12 +30,15 @@ public class Date implements Comparable {
          *  @param heure Heure correspondant a la date.
          *  @param minute Minute correspondant a la date.
      */
-    public Date(int jour, int mois, int annee, int heure, int minute) {
-        this.jour = jour;
-        this.mois = mois;
-        this.annee = annee;
-        this.heure = heure;
-        this.minute = minute;
+    public Date(int jours, int mois, int annee, int heure, int minute) {
+        this.jour = 1;
+        this.mois = 1;
+        this.annee = 0;
+        this.heure = 0;
+        this.minute = 0;
+        if (jours>0 && jours<=32){
+            this.jour = jours;
+        }
     }
 
     /*!
