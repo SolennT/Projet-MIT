@@ -69,6 +69,7 @@ public class Connexion extends javax.swing.JFrame {
         jLabelConnexion1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabelConnexion1.setForeground(new java.awt.Color(51, 51, 51));
         jLabelConnexion1.setText("CONNEXION");
+        jLabelConnexion1.setFocusable(false);
 
         jTextFieldId.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jTextFieldId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
