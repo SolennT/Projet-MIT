@@ -38,10 +38,20 @@ public class Patient {
         this.address = address;
         this.birthday = birthday;
     }
+    
 
     /**
      * @return the id
+     * on donne son numéro de patient par ordre chronologique 
+     * exemple : c'est le 18ème patient enregistré dans la BDD,
+     * donc son id sera 18.
      */
+    
+    private String creerId(){
+        //on a besoin de la classe lectureSQL 
+        return id;
+    }
+    
     public String getId() {
         return id;
     }

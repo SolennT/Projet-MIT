@@ -19,6 +19,7 @@ public class MedicalStaff {
     private Function function;
     private String identifiant;
     private String mdp;
+    private boolean medecin_traitant;
 
     /*!
          *
@@ -42,6 +43,13 @@ public class MedicalStaff {
         this.surname = surname;
         identifiant = name + surname;
     }
+    public MedicalStaff(String name, String surname) {
+        this.medecin_traitant=true;
+        this.name = name;
+        this.surname = surname;
+        identifiant = name + surname;
+    }
+
     
     public MedicalStaff(String name, String surname, Function function, String mdp) {
         this.function = function;
