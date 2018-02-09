@@ -7,6 +7,8 @@
  */
 package sir.ui;
 
+import java.util.ArrayList;
+import sir.nf.MedicalStaff;
 /**
  *
  * @author solenn
@@ -17,6 +19,10 @@ public class Connexion extends javax.swing.JFrame {
      * Creates new form Accueil
      */
     boolean logged = false;
+    String id = null;
+    
+    private MedicalStaff staff = null;
+    
     
     public Connexion() {
         
@@ -25,7 +31,11 @@ public class Connexion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setSize(700, 600);
+        
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +96,11 @@ public class Connexion extends javax.swing.JFrame {
         });
 
         jButton1.setText("OK");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -199,6 +214,33 @@ public class Connexion extends javax.swing.JFrame {
     private void jTextFieldIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdFocusGained
         jTextFieldId.setText("");
     }//GEN-LAST:event_jTextFieldIdFocusGained
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        AjouterPatient a = new AjouterPatient();
+        a.setVisible(true);
+        ArrayList<MedicalStaff> staff = new ArrayList();
+        id = jTextFieldId.getText();
+        //LectureSQL l = new LectureXML("medicalStaff");
+        //staff = l.getListeMedicalStaff();
+        int k = 0;
+        String nomprenom="";
+        
+//        while(!b&&k<staff.size()){
+//            med=staff.get(k);
+//            np= med.getIdentifiant()
+//            k++;
+//            if(np.contentEquals(id)&&med.getMdp().equals(jPasswordField1.getText())){
+//                logged=true;
+//                Main.setMed(med);
+//                AccueilSIR menu = new AccueilSIR(med);
+//                menu.setVisible(true);
+//                this.dispose();
+//         }}
+//        if(!b){
+//            Erreur e = new Erreur();
+//            e.setVisible(true);
+//            this.dispose();}
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

@@ -18,6 +18,8 @@ public class MedicalStaff {
     private String surname;
     private Function function;
     private String identifiant;
+    private String mdp;
+    private boolean medecin_traitant;
 
     /*!
          *
@@ -28,11 +30,33 @@ public class MedicalStaff {
          *  @param surname Nom du satff medical
          *  @param identifiant Identifiant du satff medical
      */
+    public MedicalStaff(String identifiant, Function function, String mdp) {
+        this.function = function;
+        this.name = name;
+        this.surname = surname;
+        this.identifiant = identifiant;
+        this.mdp = mdp;
+    }
     public MedicalStaff(String name, String surname, Function function) {
         this.function = function;
         this.name = name;
         this.surname = surname;
         identifiant = name + surname;
+    }
+    public MedicalStaff(String name, String surname) {
+        this.medecin_traitant=true;
+        this.name = name;
+        this.surname = surname;
+        identifiant = name + surname;
+    }
+
+    
+    public MedicalStaff(String name, String surname, Function function, String mdp) {
+        this.function = function;
+        this.name = name;
+        this.surname = surname;
+        identifiant = name + surname;
+        this.mdp = mdp;
     }
 
     /**
