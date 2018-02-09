@@ -7,6 +7,7 @@ package sir.nf;
 
 import java.io.IOException;
 import javax.xml.stream.XMLStreamException;
+import sir.ui.AjouterPatient;
 import sir.ui.Connexion;
 
 /**
@@ -26,6 +27,8 @@ public class Main {
     public static void main(String[] args) {
         Connexion c = new Connexion();
         c.setVisible(true);
+        AjouterPatient a = new AjouterPatient();
+        a.setVisible(true);
 //        Menu menu;
 //            setLogged(l.getLogged());
 //        if( isLogged()){

@@ -216,12 +216,15 @@ public class Connexion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldIdFocusGained
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        AjouterPatient a = new AjouterPatient();
+        a.setVisible(true);
         ArrayList<MedicalStaff> staff = new ArrayList();
         id = jTextFieldId.getText();
         //LectureSQL l = new LectureXML("medicalStaff");
         //staff = l.getListeMedicalStaff();
         int k = 0;
         String nomprenom="";
+        
 //        while(!b&&k<staff.size()){
 //            med=staff.get(k);
 //            np= med.getIdentifiant()
