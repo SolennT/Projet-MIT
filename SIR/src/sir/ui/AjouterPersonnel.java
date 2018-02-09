@@ -9,14 +9,14 @@ package sir.ui;
  *
  * @author Utilisateur
  */
-public class AjouterPatient extends javax.swing.JPanel implements java.beans.Customizer {
+public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.Customizer {
     
     private Object bean;
 
     /**
      * Creates new customizer AjouterPatient
      */
-    public AjouterPatient() {
+    public AjouterPersonnel() {
         initComponents();
     }
     
@@ -58,13 +58,9 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        nomPatient = new javax.swing.JTextField();
-        prenomPatient = new javax.swing.JTextField();
-        ddnPatient = new javax.swing.JTextField();
-        adressePatient = new javax.swing.JTextField();
-        jComboBoxGenre = new javax.swing.JComboBox<>();
+        nomPersonnel = new javax.swing.JTextField();
+        prenomPersonnel = new javax.swing.JTextField();
+        jComboBoxFonction = new javax.swing.JComboBox<>();
         jButtonEnregistrer = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -290,7 +286,7 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
         setMinimumSize(new java.awt.Dimension(501, 453));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setText("Ajouter Patient");
+        jLabel1.setText("Ajouter Personnel");
 
         jButtonFermer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/fermerFenetre.png"))); // NOI18N
 
@@ -312,7 +308,7 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -322,27 +318,15 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
         jLabel9.setText("Prénom:");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel10.setText("Date de naissance:");
+        jLabel10.setText("Fonction:");
 
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel11.setText("Genre:");
+        nomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nomPersonnel.setText("Nom");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel12.setText("Adresse");
+        prenomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        prenomPersonnel.setText("Prénom");
 
-        nomPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nomPatient.setText("Nom");
-
-        prenomPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        prenomPatient.setText("Prénom");
-
-        ddnPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ddnPatient.setText("Date de naissance");
-
-        adressePatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        adressePatient.setText("Adresse");
-
-        jComboBoxGenre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jComboBoxFonction.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         jButtonEnregistrer.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButtonEnregistrer.setText("Enregistrer");
@@ -366,7 +350,7 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(20, 20, 20))
         );
@@ -379,24 +363,24 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel8)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButtonEnregistrer)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jComboBoxFonction, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prenomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -405,32 +389,24 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(60, 60, 60)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(25, 25, 25)
+                            .addComponent(jLabel8)
+                            .addComponent(nomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                            .addComponent(prenomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxFonction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39)
+                        .addComponent(jButtonEnregistrer))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)))
-                .addGap(4, 4, 4)
-                .addComponent(jButtonEnregistrer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -465,9 +441,7 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
-    private javax.swing.JTextField adressePatient;
     private javax.swing.JLabel date;
-    private javax.swing.JTextField ddnPatient;
     private javax.swing.JLabel fonction;
     private javax.swing.JLabel id;
     private javax.swing.JButton jButtonAjouterPatient;
@@ -475,11 +449,9 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
     private javax.swing.JButton jButtonDeco;
     private javax.swing.JButton jButtonEnregistrer;
     private javax.swing.JButton jButtonFermer;
-    private javax.swing.JComboBox<String> jComboBoxGenre;
+    private javax.swing.JComboBox<String> jComboBoxFonction;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
@@ -499,7 +471,7 @@ public class AjouterPatient extends javax.swing.JPanel implements java.beans.Cus
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDMR;
     private javax.swing.JLabel name;
-    private javax.swing.JTextField nomPatient;
-    private javax.swing.JTextField prenomPatient;
+    private javax.swing.JTextField nomPersonnel;
+    private javax.swing.JTextField prenomPersonnel;
     // End of variables declaration//GEN-END:variables
 }

@@ -371,6 +371,12 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="f8" green="cb" red="ae" type="rgb"/>
     </Property>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[501, 453]"/>
+    </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[501, 453]"/>
+    </Property>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -411,14 +417,14 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                  <Component id="jButtonExit" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="jButtonFermer" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Component id="jButtonExit" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonFermer" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -438,15 +444,12 @@
             <Property name="text" type="java.lang.String" value="Ajouter Patient"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonExit">
+        <Component class="javax.swing.JButton" name="jButtonFermer">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/sir/ui/fermerFenetre.png"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonExitMouseClicked"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -467,14 +470,14 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTextNom" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="nomPatient" min="-2" pref="130" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jButtonEnregistrer" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBoxSexe" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="jTextPrenom" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="jtextAdresse" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="jTextDateNaiss" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="jComboBoxGenre" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="prenomPatient" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="adressePatient" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="ddnPatient" min="-2" pref="130" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -491,28 +494,28 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextNom" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nomPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="prenomPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextDateNaiss" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ddnPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBoxSexe" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxGenre" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtextAdresse" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="adressePatient" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -569,7 +572,7 @@
             <Property name="text" type="java.lang.String" value="Adresse"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextNom">
+        <Component class="javax.swing.JTextField" name="nomPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>
@@ -577,7 +580,7 @@
             <Property name="text" type="java.lang.String" value="Nom"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextPrenom">
+        <Component class="javax.swing.JTextField" name="prenomPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>
@@ -585,7 +588,7 @@
             <Property name="text" type="java.lang.String" value="Pr&#xe9;nom"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextDateNaiss">
+        <Component class="javax.swing.JTextField" name="ddnPatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>
@@ -593,7 +596,7 @@
             <Property name="text" type="java.lang.String" value="Date de naissance"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtextAdresse">
+        <Component class="javax.swing.JTextField" name="adressePatient">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>
@@ -601,18 +604,13 @@
             <Property name="text" type="java.lang.String" value="Adresse"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxSexe">
+        <Component class="javax.swing.JComboBox" name="jComboBoxGenre">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Homme"/>
-                <StringItem index="1" value="Femme"/>
-                <StringItem index="2" value="Autre"/>
-                <StringItem index="3" value="Inconnu"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -627,7 +625,6 @@
             <Property name="text" type="java.lang.String" value="Enregistrer"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonEnregistrerMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEnregistrerActionPerformed"/>
           </Events>
         </Component>
