@@ -31,8 +31,6 @@ public class Connexion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setSize(700, 600);
-        
-        
     }
     
     
@@ -53,7 +51,7 @@ public class Connexion extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabelConnexion1 = new javax.swing.JLabel();
         jTextFieldId = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonOK = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -95,10 +93,10 @@ public class Connexion extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("OK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+        jButtonOK.setText("OK");
+        jButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOKActionPerformed(evt);
             }
         });
 
@@ -114,7 +112,7 @@ public class Connexion extends javax.swing.JFrame {
                     .addComponent(jTextFieldId)
                     .addComponent(jLabelMDP1)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonOK))
                 .addGap(25, 25, 25))
         );
         jPanel8Layout.setVerticalGroup(
@@ -131,7 +129,7 @@ public class Connexion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(jButtonOK)
                 .addGap(24, 24, 24))
         );
 
@@ -215,32 +213,12 @@ public class Connexion extends javax.swing.JFrame {
         jTextFieldId.setText("");
     }//GEN-LAST:event_jTextFieldIdFocusGained
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        AjouterPatient a = new AjouterPatient();
-        a.setVisible(true);
-        ArrayList<MedicalStaff> staff = new ArrayList();
-        id = jTextFieldId.getText();
-        //LectureSQL l = new LectureXML("medicalStaff");
-        //staff = l.getListeMedicalStaff();
-        int k = 0;
-        String nomprenom="";
-        
-//        while(!b&&k<staff.size()){
-//            med=staff.get(k);
-//            np= med.getIdentifiant()
-//            k++;
-//            if(np.contentEquals(id)&&med.getMdp().equals(jPasswordField1.getText())){
-//                logged=true;
-//                Main.setMed(med);
-//                AccueilSIR menu = new AccueilSIR(med);
-//                menu.setVisible(true);
-//                this.dispose();
-//         }}
-//        if(!b){
-//            Erreur e = new Erreur();
-//            e.setVisible(true);
-//            this.dispose();}
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
+        // TODO add your handling code here:
+        AccueilSIR accueil = new AccueilSIR();
+        accueil.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +257,7 @@ public class Connexion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonOK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
