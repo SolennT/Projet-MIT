@@ -64,11 +64,13 @@ public class AjouterPatient extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         nomPatient = new javax.swing.JTextField();
         prenomPatient = new javax.swing.JTextField();
-        ddnPatient = new javax.swing.JTextField();
         adressePatient = new javax.swing.JTextField();
         jComboBoxGenre = new javax.swing.JComboBox<>();
         jButtonEnregistrer = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jComboBoxJour = new javax.swing.JComboBox<>();
+        jComboBoxMois = new javax.swing.JComboBox<>();
+        jComboBoxAnnee = new javax.swing.JComboBox<>();
 
         jPanel3.setPreferredSize(new java.awt.Dimension(700, 450));
 
@@ -288,21 +290,31 @@ public class AjouterPatient extends javax.swing.JFrame {
         setBackground(new java.awt.Color(174, 203, 248));
         setMaximumSize(new java.awt.Dimension(501, 453));
         setMinimumSize(new java.awt.Dimension(501, 453));
-        setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setBackground(new java.awt.Color(174, 203, 248));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(148, 203, 248));
         jLabel1.setText("Ajouter Patient");
 
+        jButtonFermer.setBackground(new java.awt.Color(0, 0, 0));
         jButtonFermer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/fermerFenetre.png"))); // NOI18N
+        jButtonFermer.setContentAreaFilled(false);
+        jButtonFermer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFermerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(163, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(167, 167, 167)
+                .addGap(141, 141, 141)
                 .addComponent(jButtonFermer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -316,27 +328,28 @@ public class AjouterPatient extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel1, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
-        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
+        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation ");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(0, 71, Short.MAX_VALUE)
+                .addComponent(jLabel2))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        add(jPanel11, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(jPanel11, java.awt.BorderLayout.SOUTH);
+
+        jPanel2.setBackground(new java.awt.Color(174, 203, 248));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Nom:");
@@ -355,15 +368,27 @@ public class AjouterPatient extends javax.swing.JFrame {
 
         nomPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nomPatient.setText("Nom");
+        nomPatient.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nomPatientFocusGained(evt);
+            }
+        });
 
         prenomPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         prenomPatient.setText("Prénom");
-
-        ddnPatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        ddnPatient.setText("Date de naissance");
+        prenomPatient.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                prenomPatientFocusGained(evt);
+            }
+        });
 
         adressePatient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         adressePatient.setText("Adresse");
+        adressePatient.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                adressePatientFocusGained(evt);
+            }
+        });
 
         jComboBoxGenre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
@@ -394,21 +419,26 @@ public class AjouterPatient extends javax.swing.JFrame {
                     .addComponent(nomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButtonEnregistrer)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxAnnee, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
@@ -416,11 +446,14 @@ public class AjouterPatient extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10))
-                        .addGap(25, 25, 25)
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
@@ -428,15 +461,13 @@ public class AjouterPatient extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)))
-                .addGap(4, 4, 4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButtonEnregistrer)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecoActionPerformed
@@ -449,14 +480,34 @@ public class AjouterPatient extends javax.swing.JFrame {
 
     private void jButtonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnregistrerActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonEnregistrerActionPerformed
+
+    private void nomPatientFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomPatientFocusGained
+        // TODO add your handling code here:
+        nomPatient.setText("");
+    }//GEN-LAST:event_nomPatientFocusGained
+
+    private void prenomPatientFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prenomPatientFocusGained
+        // TODO add your handling code here:
+        prenomPatient.setText("");
+    }//GEN-LAST:event_prenomPatientFocusGained
+
+    private void adressePatientFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_adressePatientFocusGained
+        // TODO add your handling code here:
+        adressePatient.setText("");
+    }//GEN-LAST:event_adressePatientFocusGained
+
+    private void jButtonFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFermerActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonFermerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
     private javax.swing.JTextField adressePatient;
     private javax.swing.JLabel date;
-    private javax.swing.JTextField ddnPatient;
     private javax.swing.JLabel fonction;
     private javax.swing.JLabel id;
     private javax.swing.JButton jButtonAjouterPatient;
@@ -464,7 +515,10 @@ public class AjouterPatient extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDeco;
     private javax.swing.JButton jButtonEnregistrer;
     private javax.swing.JButton jButtonFermer;
+    private javax.swing.JComboBox<String> jComboBoxAnnee;
     private javax.swing.JComboBox<String> jComboBoxGenre;
+    private javax.swing.JComboBox<String> jComboBoxJour;
+    private javax.swing.JComboBox<String> jComboBoxMois;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

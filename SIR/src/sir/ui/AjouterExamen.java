@@ -14,16 +14,31 @@ import sir.nf.Patient;
  *
  * @author solenn
  */
-public class AjouterExamen extends javax.swing.JPanel{
+public class AjouterExamen extends javax.swing.JFrame{
     /**
      * Creates new customizer AjouterExamen
      */
+    public AjouterExamen(){
+        initComponents();
+        this.setTitle("AjouterExamen");
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setSize(500,450);
+    }
     public AjouterExamen(Patient p) {
         initComponents();
-        this.NomPat = p.getNom();
-        this.PrenomPat = p.getPrenom();
-        this.DateNPat = p.getDateN();
-        //this.setTitle("Ajouter un Examen");
+        this.setTitle("Ajouter un Examen");
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setSize(500,450);
+        NomPat.setText(p.getName());
+        PrenomPat.setText(p.getSurname());
+        String format = "dd/MM/yy";
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
+        DateNPat.setText(formater.format(p.getBirthday()));
+        
     }
         /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +48,7 @@ public class AjouterExamen extends javax.swing.JPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -57,9 +73,9 @@ public class AjouterExamen extends javax.swing.JPanel{
         jRadioButtonMedSIR = new javax.swing.JRadioButton();
         jRadioButtonMedExt = new javax.swing.JRadioButton();
         medSIRBox = new javax.swing.JComboBox<>();
-        nomMedBox = new javax.swing.JTextField();
+        nomMedExt = new javax.swing.JTextField();
 
-        setLayout(new java.awt.BorderLayout());
+        jTextField1.setText("jTextField1");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -81,7 +97,7 @@ public class AjouterExamen extends javax.swing.JPanel{
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(165, Short.MAX_VALUE)
+                .addContainerGap(164, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(131, 131, 131)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -95,9 +111,10 @@ public class AjouterExamen extends javax.swing.JPanel{
                 .addGap(0, 20, Short.MAX_VALUE))
         );
 
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setBackground(new java.awt.Color(174, 203, 248));
+        jPanel2.setPreferredSize(new java.awt.Dimension(500, 389));
 
         NomPat.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         NomPat.setText("Nom");
@@ -125,24 +142,12 @@ public class AjouterExamen extends javax.swing.JPanel{
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
-        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
+        jPanel11.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 67, Short.MAX_VALUE)
-                .addComponent(jLabel2))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
-        );
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
+        jPanel11.add(jLabel2, java.awt.BorderLayout.SOUTH);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/AjouterExamen.jpg"))); // NOI18N
 
@@ -177,8 +182,13 @@ public class AjouterExamen extends javax.swing.JPanel{
 
         medSIRBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        nomMedBox.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nomMedBox.setText("Nom");
+        nomMedExt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        nomMedExt.setText("Nom");
+        nomMedExt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nomMedExtFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,7 +197,7 @@ public class AjouterExamen extends javax.swing.JPanel{
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(47, 47, 47)
@@ -197,22 +207,23 @@ public class AjouterExamen extends javax.swing.JPanel{
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(typeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(heureBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jourBox, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(heureBox, 0, 45, Short.MAX_VALUE)
-                            .addComponent(jourBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(minuteBox, 0, 44, Short.MAX_VALUE)
-                            .addComponent(moisBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(minuteBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(moisBox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(anneeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButtonMedExt)
                             .addComponent(jRadioButtonMedSIR)
@@ -220,12 +231,12 @@ public class AjouterExamen extends javax.swing.JPanel{
                                 .addGap(21, 21, 21)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(medSIRBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nomMedBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))))))
+                                    .addComponent(nomMedExt, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(DateNPat)
@@ -250,7 +261,7 @@ public class AjouterExamen extends javax.swing.JPanel{
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(jourBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,25 +280,25 @@ public class AjouterExamen extends javax.swing.JPanel{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButtonMedExt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nomMedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nomMedExt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonSave)
-                .addGap(15, 15, 15)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(jPanel2, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
-        Date date = new Date((int) jourBox.getSelectedItem(),(int) moisBox.getSelectedItem(),(int) anneeBox.getSelectedItem(), (int) heureBox.getSelectedItem(), (int) minuteBox.getSelectedItem());
-        ExamenType examenType = (ExamenType) typeBox.getSelectedItem();
-        Examen examen = new Examen(date, examenType);
-        dlm.addElement(examen.toString());
+        //Date date = new Date((int) jourBox.getSelectedItem(),(int) moisBox.getSelectedItem(),(int) anneeBox.getSelectedItem(), (int) heureBox.getSelectedItem(), (int) minuteBox.getSelectedItem());
+        //ExamenType examenType = (ExamenType) typeBox.getSelectedItem();
+        //Examen examen = new Examen(date, examenType);
+        //dlm.addElement(examen.toString());
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -295,13 +306,18 @@ public class AjouterExamen extends javax.swing.JPanel{
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void nomMedExtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomMedExtFocusGained
+        // TODO add your handling code here:
+        nomMedExt.setText("");
+    }//GEN-LAST:event_nomMedExtFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DateNPat;
     private javax.swing.JLabel NomPat;
     private javax.swing.JLabel PrenomPat;
-    private javax.swing.JComboBox<int> anneeBox;
-    private javax.swing.JComboBox<int> heureBox;
+    private javax.swing.JComboBox<Integer> anneeBox;
+    private javax.swing.JComboBox<Integer> heureBox;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabel1;
@@ -316,11 +332,12 @@ public class AjouterExamen extends javax.swing.JPanel{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButtonMedExt;
     private javax.swing.JRadioButton jRadioButtonMedSIR;
-    private javax.swing.JComboBox<int> jourBox;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<Integer> jourBox;
     private javax.swing.JComboBox<String> medSIRBox;
-    private javax.swing.JComboBox<int> minuteBox;
-    private javax.swing.JComboBox<int> moisBox;
-    private javax.swing.JTextField nomMedBox;
+    private javax.swing.JComboBox<Integer> minuteBox;
+    private javax.swing.JComboBox<Integer> moisBox;
+    private javax.swing.JTextField nomMedExt;
     private javax.swing.JComboBox<ExamenType> typeBox;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,12 +8,18 @@ package sir.ui;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import sir.nf.Function;
+import sir.nf.Gender;
 
 /**
  *
  * @author solenn
  */
 public class AccueilSIR extends javax.swing.JFrame {
+    
+    private String fonction;
+    private String id;
+
 
     /**
      * Creates new customizer SIR
@@ -28,6 +34,23 @@ public class AccueilSIR extends javax.swing.JFrame {
         java.util.Date d = new java.util.Date();
         date.setText(formater.format(d));
     }
+    
+    public AccueilSIR(String fonction, String id) {
+        initComponents();
+        this.setTitle("Accueil");
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.id = id;
+        this.fonction = fonction;
+        this.setLocationRelativeTo(null);
+        identif.setText(id);
+        fonctionID.setText(fonction);
+        String format = "dd/MM/yy";
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
+        java.util.Date d = new java.util.Date();
+        date.setText(formater.format(d));
+        
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,9 +68,8 @@ public class AccueilSIR extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         date = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
-        name = new javax.swing.JLabel();
-        fonction = new javax.swing.JLabel();
+        identif = new javax.swing.JLabel();
+        fonctionID = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterPatient = new javax.swing.JButton();
         jButtonAjouterPersonnel = new javax.swing.JButton();
@@ -57,18 +79,18 @@ public class AccueilSIR extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDMR = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        nom = new javax.swing.JTextField();
-        prenom = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        idPatient = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jTextFieldNom = new javax.swing.JTextField();
+        jTextFieldPrenom = new javax.swing.JTextField();
+        jTextFieldIdPatient = new javax.swing.JTextField();
         jComboBoxJour = new javax.swing.JComboBox<>();
         jComboBoxMois = new javax.swing.JComboBox<>();
         jComboBoxAnnee = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBoxGenre = new javax.swing.JComboBox<>();
+        jComboBoxGenre = new javax.swing.JComboBox<Gender>(Gender.values());
         jButtonRechercher = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -98,20 +120,15 @@ public class AccueilSIR extends javax.swing.JFrame {
         date.setText("Date");
         jPanel4.add(date);
 
-        id.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        id.setForeground(new java.awt.Color(174, 203, 248));
-        id.setText("Identifiant");
-        jPanel4.add(id);
+        identif.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        identif.setForeground(new java.awt.Color(174, 203, 248));
+        identif.setText("Identifiant");
+        jPanel4.add(identif);
 
-        name.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        name.setForeground(new java.awt.Color(174, 203, 248));
-        name.setText("Nom - Prénom");
-        jPanel4.add(name);
-
-        fonction.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        fonction.setForeground(new java.awt.Color(174, 203, 248));
-        fonction.setText("Fonction");
-        jPanel4.add(fonction);
+        fonctionID.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        fonctionID.setForeground(new java.awt.Color(174, 203, 248));
+        fonctionID.setText("Fonction");
+        jPanel4.add(fonctionID);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -122,15 +139,15 @@ public class AccueilSIR extends javax.swing.JFrame {
                 jButtonAjouterPatientActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAjouterPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, -1, -1));
+        jPanel5.add(jButtonAjouterPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 0, 80, -1));
 
-        jButtonAjouterPersonnel.setText("Ajouter");
+        jButtonAjouterPersonnel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/ajouterPersonnelPetit.jpg"))); // NOI18N
         jButtonAjouterPersonnel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAjouterPersonnelActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAjouterPersonnel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 110));
+        jPanel5.add(jButtonAjouterPersonnel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 80, -1));
 
         jButtonDeco.setBackground(new java.awt.Color(174, 203, 248));
         jButtonDeco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/deco.png"))); // NOI18N
@@ -158,7 +175,7 @@ public class AccueilSIR extends javax.swing.JFrame {
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,6 +193,7 @@ public class AccueilSIR extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         jTableDMR.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,129 +206,150 @@ public class AccueilSIR extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableDMR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDMRMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableDMR);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("Rechercher:");
         jLabel2.setToolTipText("");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel3.setText("Par nom/prénom:");
-
-        nom.setText("Nom");
-
-        prenom.setText("Prénom");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel4.setText("Par numéro d'identification:");
-
-        idPatient.setText("ID");
-        idPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idPatientActionPerformed(evt);
+        jTextFieldNom.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTextFieldNom.setText("Nom");
+        jTextFieldNom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNomFocusGained(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel5.setText("Par date de naissance:");
+        jTextFieldPrenom.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTextFieldPrenom.setText("Prénom");
+        jTextFieldPrenom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldPrenomFocusGained(evt);
+            }
+        });
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel6.setText("Par genre:");
+        jTextFieldIdPatient.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTextFieldIdPatient.setText("ID");
+        jTextFieldIdPatient.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldIdPatientFocusGained(evt);
+            }
+        });
+        jTextFieldIdPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldIdPatientActionPerformed(evt);
+            }
+        });
 
-        jComboBoxGenre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homme", "Femme", "Autre", "Inconnu" }));
+        jComboBoxJour.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
+        jComboBoxMois.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+
+        jComboBoxAnnee.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+
+        jComboBoxGenre.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+
+        jButtonRechercher.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jButtonRechercher.setText("Rechercher");
+
+        jRadioButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButton1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("Par nom/prénom :");
+
+        jRadioButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButton2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton2.setText("Par numéro d'Identification :");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButton3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton3.setText("Par date de naissance :");
+
+        jRadioButton4.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButton4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton4.setText("Par genre :");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jLabel3)))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(idPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonRechercher)))))
-                        .addGap(19, 19, 19)))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldIdPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jComboBoxGenre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPrenom)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonRechercher)
+                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(idPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(jLabel5)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jButtonRechercher)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jRadioButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jTextFieldIdPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton4)
+                    .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRechercher))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -330,7 +369,7 @@ public class AccueilSIR extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 290, Short.MAX_VALUE)))
+                    .addGap(0, 332, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel6, java.awt.BorderLayout.CENTER);
@@ -348,9 +387,9 @@ public class AccueilSIR extends javax.swing.JFrame {
         getContentPane().add(jPanel3, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idPatientActionPerformed
+    private void jTextFieldIdPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdPatientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_idPatientActionPerformed
+    }//GEN-LAST:event_jTextFieldIdPatientActionPerformed
 
     private void jButtonAideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAideActionPerformed
         // TODO add your handling code here:
@@ -375,27 +414,48 @@ public class AccueilSIR extends javax.swing.JFrame {
         addPersonnel.setVisible(true);
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jTextFieldNomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomFocusGained
+        // TODO add your handling code here:
+        jTextFieldNom.setText("");
+    }//GEN-LAST:event_jTextFieldNomFocusGained
+
+    private void jTextFieldPrenomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPrenomFocusGained
+        // TODO add your handling code here:
+        jTextFieldPrenom.setText("");
+    }//GEN-LAST:event_jTextFieldPrenomFocusGained
+
+    private void jTextFieldIdPatientFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdPatientFocusGained
+        // TODO add your handling code here:
+        jTextFieldIdPatient.setText("");
+    }//GEN-LAST:event_jTextFieldIdPatientFocusGained
+
+    private void jTableDMRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDMRMouseClicked
+        // TODO add your handling code here:
+        AccueilPatient accueilPatient= new AccueilPatient();
+        accueilPatient.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jTableDMRMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel date;
-    private javax.swing.JLabel fonction;
-    private javax.swing.JLabel id;
-    private javax.swing.JTextField idPatient;
+    private javax.swing.JLabel fonctionID;
+    private javax.swing.JLabel identif;
     private javax.swing.JButton jButtonAide;
     private javax.swing.JButton jButtonAjouterPatient;
     private javax.swing.JButton jButtonAjouterPersonnel;
     private javax.swing.JButton jButtonDeco;
     private javax.swing.JButton jButtonRechercher;
     private javax.swing.JComboBox<String> jComboBoxAnnee;
-    private javax.swing.JComboBox<String> jComboBoxGenre;
+    private javax.swing.JComboBox<Gender> jComboBoxGenre;
     private javax.swing.JComboBox<String> jComboBoxJour;
     private javax.swing.JComboBox<String> jComboBoxMois;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -405,10 +465,14 @@ public class AccueilSIR extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDMR;
-    private javax.swing.JLabel name;
-    private javax.swing.JTextField nom;
-    private javax.swing.JTextField prenom;
+    private javax.swing.JTextField jTextFieldIdPatient;
+    private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldPrenom;
     // End of variables declaration//GEN-END:variables
 }
