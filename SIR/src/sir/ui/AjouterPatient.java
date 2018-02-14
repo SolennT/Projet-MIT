@@ -337,7 +337,11 @@ public class AjouterPatient extends javax.swing.JFrame {
         );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         getContentPane().add(jPanel11, java.awt.BorderLayout.SOUTH);
+=======
+        add(jPanel11, java.awt.BorderLayout.SOUTH);
+>>>>>>> parent of c26d8f6... interface
 =======
         add(jPanel11, java.awt.BorderLayout.SOUTH);
 >>>>>>> parent of c26d8f6... interface
@@ -404,7 +408,11 @@ public class AjouterPatient extends javax.swing.JFrame {
                             .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+>>>>>>> parent of c26d8f6... interface
 =======
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
 >>>>>>> parent of c26d8f6... interface
@@ -442,7 +450,11 @@ public class AjouterPatient extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jButtonEnregistrer)
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+=======
+                .addContainerGap(82, Short.MAX_VALUE))
+>>>>>>> parent of c26d8f6... interface
 =======
                 .addContainerGap(82, Short.MAX_VALUE))
 >>>>>>> parent of c26d8f6... interface
