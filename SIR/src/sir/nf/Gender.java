@@ -13,14 +13,8 @@ package sir.nf;
  *
  */
 public enum Gender {
-    M("Homme"),
-    F("Femme"),
-    Other("Autre"), 
-    Inconnu("Inconnu");
-
-    private String libelle;
-
-    private Gender(String libelle) {
-        this.libelle = libelle;
-    }
+    M,
+    F,
+    Other
+    ;
 }
