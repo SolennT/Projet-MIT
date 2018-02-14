@@ -9,21 +9,18 @@ package sir.ui;
  *
  * @author Utilisateur
  */
-public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.Customizer {
-    
-    private Object bean;
-
+public class AjouterPersonnel extends javax.swing.JFrame {
     /**
      * Creates new customizer AjouterPatient
      */
     public AjouterPersonnel() {
         initComponents();
+        this.setTitle("AjouterPersonnel");
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setSize(500,450);
     }
-    
-    public void setObject(Object bean) {
-        this.bean = bean;
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -284,11 +281,22 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         setBackground(new java.awt.Color(174, 203, 248));
         setMaximumSize(new java.awt.Dimension(501, 453));
         setMinimumSize(new java.awt.Dimension(501, 453));
+        setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(174, 203, 248));
         jLabel1.setText("Ajouter Personnel");
 
         jButtonFermer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/fermerFenetre.png"))); // NOI18N
+        jButtonFermer.setContentAreaFilled(false);
+        jButtonFermer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFermerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -297,7 +305,7 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(167, 167, 167)
+                .addGap(128, 128, 128)
                 .addComponent(jButtonFermer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -308,8 +316,12 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setBackground(new java.awt.Color(174, 203, 248));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Nom:");
@@ -322,9 +334,19 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
 
         nomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nomPersonnel.setText("Nom");
+        nomPersonnel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nomPersonnelFocusGained(evt);
+            }
+        });
 
         prenomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         prenomPersonnel.setText("Prénom");
+        prenomPersonnel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                prenomPersonnelFocusGained(evt);
+            }
+        });
 
         jComboBoxFonction.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
@@ -336,24 +358,12 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
-        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
+        jPanel11.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 64, Short.MAX_VALUE)
-                .addComponent(jLabel2))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(20, 20, 20))
-        );
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
+        jPanel11.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/ajouterPatientGrand.png"))); // NOI18N
 
@@ -361,15 +371,14 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
                         .addComponent(jLabel8)
                         .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))
@@ -389,7 +398,7 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
+                        .addGap(91, 91, 91)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(nomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -404,26 +413,13 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
                         .addGap(39, 39, 39)
                         .addComponent(jButtonEnregistrer))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(55, 55, 55)
                         .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecoActionPerformed
@@ -436,7 +432,23 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
 
     private void jButtonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnregistrerActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButtonEnregistrerActionPerformed
+
+    private void nomPersonnelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomPersonnelFocusGained
+        // TODO add your handling code here:
+        nomPersonnel.setText("");
+    }//GEN-LAST:event_nomPersonnelFocusGained
+
+    private void prenomPersonnelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prenomPersonnelFocusGained
+        // TODO add your handling code here:
+        prenomPersonnel.setText("");
+    }//GEN-LAST:event_prenomPersonnelFocusGained
+
+    private void jButtonFermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFermerActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonFermerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
