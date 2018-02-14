@@ -37,16 +37,8 @@ public class Patient {
         this.gender = gender;
         this.address = address;
         this.birthday = birthday;
-        this.id=creerId();
     }
-        public Patient(String name, String surname, String gender, String address, Date birthday) {
-        this.name = name;
-        this.surname = surname;
-//        this.gender = gender;
-        this.address = address;
-        this.birthday = birthday;
-        this.id=creerId();
-    }
+    
 
     /**
      * @return the id

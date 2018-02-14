@@ -59,12 +59,6 @@ public class MedicalStaff {
         this.mdp = mdp;
     }
 
-    MedicalStaff(String name, String surname, String function) {
-//        this.function = function;
-        this.name = name;
-        this.surname = surname;
-    }
-
     /**
      * @return the name
      */

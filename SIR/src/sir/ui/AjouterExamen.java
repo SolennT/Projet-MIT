@@ -28,7 +28,6 @@ public class AjouterExamen extends javax.swing.JFrame{
     }
     public AjouterExamen(Patient p) {
         initComponents();
-<<<<<<< HEAD
         this.setTitle("Ajouter un Examen");
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
@@ -40,12 +39,6 @@ public class AjouterExamen extends javax.swing.JFrame{
         java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
         DateNPat.setText(formater.format(p.getBirthday()));
         
-=======
-        this.NomPat = p.getName();
-        this.PrenomPat = p.getSurname();
-        this.DateNPat = p.getBirthday();
-        //this.setTitle("Ajouter un Examen");
->>>>>>> 38aba7151652c907aff8a3b2f2cf5dd73219810e
     }
         /**
      * This method is called from within the constructor to initialize the form.
