@@ -60,7 +60,7 @@ public class MedicalStaff {
     }
 
     MedicalStaff(String name, String surname, String function) {
-//        this.function = function;
+        this.function = Function.valueOf(function);
         this.name = name;
         this.surname = surname;
     }

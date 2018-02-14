@@ -65,7 +65,8 @@ public class Factory {
         return j;
     }
 
-    private static ArrayList getListePatient() {
+    
+ private static ArrayList getListePatient() {
         ArrayList<Patient> liste = new ArrayList();
         try {
             String requete = "SELECT * FROM patient";
@@ -92,13 +93,42 @@ public class Factory {
 
         return liste;
     }
-      
+            
     
     public static Examen creerExam(Date date, ExamenType type, MedicalStaff prescripteur, MedicalStaff resposableRadio){
         Examen exam = new Examen(date, type, prescripteur,resposableRadio);
         return exam;
     }
     
+//     private static ArrayList getListeExam() {
+//        ArrayList<Examen> liste = new ArrayList();
+//        try {
+//            String requete = "SELECT * FROM patient";
+//            PreparedStatement state = ConnBD.getInstance().prepareStatement(requete);
+//            state.execute();
+//            ResultSet res = state.getResultSet();
+//            res.next();
+//            String name = res.getString("nom");
+//            String surname = res.getString("prenom");
+//            java.sql.Date birthday = res.getDate("datedenaissance");
+//            sir.nf.Date birth = new sir.nf.Date(birthday);
+//            String genre = "";
+//            genre = res.getString("genre");
+//            String adresse = res.getString("adresse");
+//            String id = res.getString("Id");
+//            Patient p = new Patient (name,surname,genre,adresse,birth);
+//            liste.add(p);
+//            state.close();
+//            res.close();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return liste;
+//    }
+      
+     
 //    public static Examen creerExam(ExamenType type, MedicalStaff prescripteur, MedicalStaff resposableRadio){
 //        DateFormat dateFormat = new SimpleDateFormat();
 //        Calendar date = Calendar.getInstance();
