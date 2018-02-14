@@ -348,8 +348,11 @@ public class AjouterPatient extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel11, java.awt.BorderLayout.SOUTH);
+<<<<<<< HEAD
 
         jPanel2.setBackground(new java.awt.Color(174, 203, 248));
+=======
+>>>>>>> 38aba7151652c907aff8a3b2f2cf5dd73219810e
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Nom:");
@@ -423,6 +426,7 @@ public class AjouterPatient extends javax.swing.JFrame {
                             .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -430,6 +434,10 @@ public class AjouterPatient extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxAnnee, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+=======
+                            .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+>>>>>>> 38aba7151652c907aff8a3b2f2cf5dd73219810e
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -464,7 +472,11 @@ public class AjouterPatient extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jButtonEnregistrer)
+<<<<<<< HEAD
                 .addGap(25, 25, 25))
+=======
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 38aba7151652c907aff8a3b2f2cf5dd73219810e
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
