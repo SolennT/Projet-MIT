@@ -5,6 +5,7 @@
  */
 package sir.nf;
 
+
 /*!
  *
  *  @class Date
@@ -40,7 +41,13 @@ public class Date implements Comparable {
             this.jour = jours;
         }
     }
-
+    public Date(java.sql.Date D) {
+        this.annee=D.getYear();
+        this.mois=D.getMonth();
+        this.jour=D.getDay();
+        this.heure=D.getHours();
+        this.minute=D.getMinutes();
+    }
     /*!
          *
          *  @brief Constructeur surcharge d'une Date.
@@ -54,7 +61,13 @@ public class Date implements Comparable {
         this.mois = mois;
         this.annee = annee;
     }
-
+    
+    public java.sql.Date getSQLDate(){
+        java.sql.Date D = new java.sql.Date(this.annee, this.mois,this.jour);
+        D.setHours(this.heure);
+        D.setMinutes(this.minute);
+        return D;
+    }
     /*!
          *
          *  \brief Methode de description d'une date.
@@ -120,8 +133,8 @@ public class Date implements Comparable {
          *
      */
     public boolean equals(Object o) {
-        if (o instanceof Date) {
-            Date d = (Date) o;
+        if (o instanceof sir.nf.Date) {
+            sir.nf.Date d = (sir.nf.Date) o;
             return (annee == d.annee) && (mois == d.mois) && (jour == d.jour) && (heure == d.heure) && (minute == d.minute);
         } else {
             return false;
@@ -139,7 +152,7 @@ public class Date implements Comparable {
          *
          */
     public int compareTo(Object o) {
-        Date d = (Date) o;
+        sir.nf.Date d = (sir.nf.Date) o;
         if (annee != d.annee) {
             return annee - d.annee;
         }
