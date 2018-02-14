@@ -288,7 +288,6 @@ public class AjouterPatient extends javax.swing.JFrame {
         setBackground(new java.awt.Color(174, 203, 248));
         setMaximumSize(new java.awt.Dimension(501, 453));
         setMinimumSize(new java.awt.Dimension(501, 453));
-        setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Ajouter Patient");
@@ -316,7 +315,7 @@ public class AjouterPatient extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel1, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
@@ -336,7 +335,7 @@ public class AjouterPatient extends javax.swing.JFrame {
             .addComponent(jLabel2)
         );
 
-        add(jPanel11, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(jPanel11, java.awt.BorderLayout.SOUTH);
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel8.setText("Nom:");
@@ -399,7 +398,7 @@ public class AjouterPatient extends javax.swing.JFrame {
                             .addComponent(prenomPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adressePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ddnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -433,10 +432,10 @@ public class AjouterPatient extends javax.swing.JFrame {
                         .addComponent(jLabel3)))
                 .addGap(4, 4, 4)
                 .addComponent(jButtonEnregistrer)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecoActionPerformed

@@ -20,9 +20,9 @@ public class AjouterExamen extends javax.swing.JPanel{
      */
     public AjouterExamen(Patient p) {
         initComponents();
-        this.NomPat = p.getNom();
-        this.PrenomPat = p.getPrenom();
-        this.DateNPat = p.getDateN();
+        this.NomPat = p.getName();
+        this.PrenomPat = p.getSurname();
+        this.DateNPat = p.getBirthday();
         //this.setTitle("Ajouter un Examen");
     }
         /**
