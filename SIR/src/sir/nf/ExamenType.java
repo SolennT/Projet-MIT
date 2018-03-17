@@ -13,8 +13,11 @@ package sir.nf;
  *
  */
 public enum ExamenType {
-    RADIOGRAPHIE,
-    SCANNER,
-    IRM
+    Radiographie,
+    Scanner,
+    IRM,
+    Angiographie,
+    Echoendoscopie,
+    Mammographie
     ;
 }

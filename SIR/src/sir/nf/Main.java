@@ -6,6 +6,7 @@
 package sir.nf;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.xml.stream.XMLStreamException;
 import sir.ui.AjouterPatient;
 import sir.ui.Connexion;
@@ -18,17 +19,47 @@ public class Main {
 
     private static boolean logged = false;
     private static MedicalStaff med = null;
-    private static Patient p = null;
-    private static DMR dm = null;
+    private static DMR p = null;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Connexion c = new Connexion();
-        c.setVisible(true);
-        AjouterPatient a = new AjouterPatient();
-        a.setVisible(true);
+
+//        Function statut = Function.Exterieur;
+//        System.out.println(statut.name());
+        Dates d = new Dates(11, 12, 2011, 7, 30);
+
+        Gender genre = Gender.H;
+        //Factory.creerPatient("Dursley","Dudley", Gender.H, "4 private drive", d, 0);
+        MedicalStaff lupin = new MedicalStaff("Lupin", "Remus", Function.Manipulateur);
+        MedicalStaff ombrage = new MedicalStaff("Ombrage", "Dolores", Function.Secretaire);
+        ArrayList<MedicalStaff> test = new ArrayList();
+        test = Factory.getListeMedecin();
+
+        int i = 0;
+        DMR p = Factory.getPatient(3);
+        System.out.println(p.getName() + " " + p.getSurname());
+//        for (MedicalStaff dmr:test){
+//            
+//            System.out.println(dmr.getFunctionStr());
+//            System.out.println(dmr.getMdp());
+//            System.out.println(dmr.getSurname());
+//            System.out.println(dmr.getName());
+//            System.out.println(dmr.getId());
+//        }
+        ArrayList<Examen> exams = new ArrayList();
+        exams = Factory.getListeExam(1);
+        for (Examen e : exams) {
+            i++;
+            System.out.println(i);
+            System.out.println(e.getDate().toString());
+            
+            
+        }
+        //Factory.creerExam(13, d, ExamenType.IRM, ombrage , lupin, 0);
+//        Connexion c = new Connexion();
+//        c.setVisible(true);
 //        Menu menu;
 //            setLogged(l.getLogged());
 //        if( isLogged()){
@@ -66,28 +97,18 @@ public class Main {
     /**
      * @return the p
      */
-    public static Patient getP() {
+    public static DMR getP() {
         return p;
     }
 
     /**
      * @param aP the p to set
      */
-    public static void setP(Patient aP) {
+    public static void setP(DMR aP) {
         p = aP;
     }
-
-    /**
-     * @return the dm
-     */
-    public static DMR getDMR() {
-        return dm;
-    }
-
-    /**
-     * @param aDm the dm to set
-     */
-    public static void setDm(DMR dmr) {
-        dm = dmr;
-    }
 }
+
+/**
+ * @return the dm
+ */

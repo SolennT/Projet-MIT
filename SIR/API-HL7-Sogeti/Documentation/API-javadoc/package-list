@@ -1,0 +1,10 @@
+api
+library.interfaces
+library.structure
+library.structure.groupe
+library.structure.groupe.messages
+library.structure.segment
+library.type
+library.type.composite
+library.type.primitive
+protocole

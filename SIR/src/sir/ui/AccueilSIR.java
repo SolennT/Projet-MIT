@@ -5,52 +5,82 @@
  */
 package sir.ui;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import sir.nf.Function;
+import javax.swing.RowSorter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import sir.nf.Gender;
+import sir.nf.DMR;
+import sir.nf.Factory;
+import sir.nf.MedicalStaff;
+import sir.nf.Dates;
+import sir.nf.Examen;
+import sir.nf.ExamenType;
+import sir.nf.Function;
 
 /**
  *
  * @author solenn
  */
 public class AccueilSIR extends javax.swing.JFrame {
-    
-    private String fonction;
-    private String id;
 
+    private MedicalStaff medecinCo;
+    private ArrayList<DMR> listeDMR;
+    private ArrayList<MedicalStaff> listeStaff;
+
+    private String[] liste;
 
     /**
      * Creates new customizer SIR
      */
-    public AccueilSIR() {
+    public AccueilSIR(MedicalStaff medecinCo, ArrayList<DMR> listeDMR, ArrayList<MedicalStaff> listeStaff) {
         initComponents();
         this.setTitle("Accueil");
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        String format = "dd/MM/yy";
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
-        java.util.Date d = new java.util.Date();
-        date.setText(formater.format(d));
-    }
-    
-    public AccueilSIR(String fonction, String id) {
-        initComponents();
-        this.setTitle("Accueil");
-        this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.id = id;
-        this.fonction = fonction;
-        this.setLocationRelativeTo(null);
-        identif.setText(id);
-        fonctionID.setText(fonction);
-        String format = "dd/MM/yy";
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
-        java.util.Date d = new java.util.Date();
-        date.setText(formater.format(d));
-        
-    }
 
+        this.medecinCo = medecinCo;
+        this.listeDMR = listeDMR;
+        this.listeStaff = listeStaff;
+
+        id.setText(Integer.toString(medecinCo.getId()));
+        name.setText(medecinCo.getName() + " " + medecinCo.getSurname());
+        fonction.setText(medecinCo.getFunction().toString());
+        String format = "dd/MM/yy";
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
+        java.util.Date d = new java.util.Date();
+        date.setText(formater.format(d));
+
+        Object[][] data = new Object[10][6];
+        this.liste = new String[6];
+        this.liste[0] = "Id Patient";
+        this.liste[1] = "Nom";
+        this.liste[2] = "Prénom";
+        this.liste[3] = "Date de naissance";
+        this.liste[4] = "Genre";
+        this.liste[5] = "Date Dernier Examen";
+        for (int i = 0; i < listeDMR.size(); i++) {
+            data[i][0] = listeDMR.get(i).getId();
+            data[i][1] = listeDMR.get(i).getName();
+            data[i][2] = listeDMR.get(i).getSurname();
+            data[i][3] = listeDMR.get(i).getBirthday().afficherDateN();
+            data[i][4] = listeDMR.get(i).getGender().toString();
+            if(listeDMR.get(i).dernierExamen() != null){
+                data[i][5] = listeDMR.get(i).dernierExamen().toString();
+            }
+            else {
+                data[i][5] = "";
+            }
+        }
+        DefaultTableModel dtm = new DefaultTableModel(data, liste);
+        jTableDMR.setModel(dtm);
+        RowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtm);
+        jTableDMR.setRowSorter(sorter);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,150 +90,187 @@ public class AccueilSIR extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        Logo = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        Logo = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
-        identif = new javax.swing.JLabel();
-        fonctionID = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        fonction = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterPatient = new javax.swing.JButton();
         jButtonAjouterPersonnel = new javax.swing.JButton();
         jButtonDeco = new javax.swing.JButton();
         jButtonAide = new javax.swing.JButton();
+        jButtonAjouterExamen = new javax.swing.JButton();
+        jButtonAjouterCR = new javax.swing.JButton();
+        jButtonAccueil = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDMR = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldNom = new javax.swing.JTextField();
         jTextFieldPrenom = new javax.swing.JTextField();
-        jTextFieldIdPatient = new javax.swing.JTextField();
-        jComboBoxJour = new javax.swing.JComboBox<>();
-        jComboBoxMois = new javax.swing.JComboBox<>();
-        jComboBoxAnnee = new javax.swing.JComboBox<>();
-        jComboBoxGenre = new javax.swing.JComboBox<Gender>(Gender.values());
+        jTextFieldID = new javax.swing.JTextField();
         jButtonRechercher = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButtonNom = new javax.swing.JRadioButton();
+        jRadioButtonID = new javax.swing.JRadioButton();
+        jRadioButtonDate = new javax.swing.JRadioButton();
+        jTextFieldAnnee = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldMois = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldJour = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(new java.awt.Dimension(700, 450));
 
         jPanel6.setBackground(new java.awt.Color(174, 203, 248));
+        jPanel6.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
-        Logo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Logo2.jpg"))); // NOI18N
-        Logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(174, 203, 248)));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel4.setLayout(new java.awt.GridLayout(4, 1));
+
+        Logo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/Logo2.jpg"))); // NOI18N
+        Logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         date.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         date.setForeground(new java.awt.Color(174, 203, 248));
         date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         date.setText("Date");
-        jPanel4.add(date);
 
-        identif.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        identif.setForeground(new java.awt.Color(174, 203, 248));
-        identif.setText("Identifiant");
-        jPanel4.add(identif);
+        id.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        id.setForeground(new java.awt.Color(174, 203, 248));
+        id.setText("Identifiant");
 
-        fonctionID.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        fonctionID.setForeground(new java.awt.Color(174, 203, 248));
-        fonctionID.setText("Fonction");
-        jPanel4.add(fonctionID);
+        name.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        name.setForeground(new java.awt.Color(174, 203, 248));
+        name.setText("Nom - Prénom");
+
+        fonction.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        fonction.setForeground(new java.awt.Color(174, 203, 248));
+        fonction.setText("Fonction");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fonction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(fonction, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        jPanel1.add(jPanel4, java.awt.BorderLayout.WEST);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonAjouterPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/AjouterPatientPetit.jpg"))); // NOI18N
+        jButtonAjouterPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterPatientPetit.jpg"))); // NOI18N
         jButtonAjouterPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAjouterPatientActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAjouterPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 0, 80, -1));
+        jPanel5.add(jButtonAjouterPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 80, -1));
 
-        jButtonAjouterPersonnel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/ajouterPersonnelPetit.jpg"))); // NOI18N
+        jButtonAjouterPersonnel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/ajouterPersonnelPetit.jpg"))); // NOI18N
         jButtonAjouterPersonnel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAjouterPersonnelActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAjouterPersonnel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 80, -1));
+        jPanel5.add(jButtonAjouterPersonnel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 80, 110));
 
         jButtonDeco.setBackground(new java.awt.Color(174, 203, 248));
-        jButtonDeco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/deco.png"))); // NOI18N
+        jButtonDeco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/deco.png"))); // NOI18N
         jButtonDeco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDecoActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonDeco, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, -1, 40));
+        jPanel5.add(jButtonDeco, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, -1, 40));
 
-        jButtonAide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/help.png"))); // NOI18N
+        jButtonAide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/help.png"))); // NOI18N
         jButtonAide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAideActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAide, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 40));
+        jPanel5.add(jButtonAide, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, -1, 40));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Logo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButtonAjouterExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterExamenPT.jpg"))); // NOI18N
+        jButtonAjouterExamen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterExamenActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAjouterExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 80, -1));
+
+        jButtonAjouterCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterCrP.jpg"))); // NOI18N
+        jButtonAjouterCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterCRActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAjouterCR, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 80, -1));
+
+        jButtonAccueil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/Accueil.jpg"))); // NOI18N
+        jButtonAccueil.setContentAreaFilled(false);
+        jButtonAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAccueilActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAccueil, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 60, 50));
+
+        jPanel1.add(jPanel5, java.awt.BorderLayout.EAST);
+
+        jPanel6.add(jPanel1, java.awt.BorderLayout.NORTH);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(174, 203, 248)));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
+        jTableDMR.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jTableDMR.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Patient", "Nom", "Prenom", "Date de Naissance", "Genre", "Date Dernier Examen"
             }
         ));
         jTableDMR.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -234,150 +301,151 @@ public class AccueilSIR extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldIdPatient.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jTextFieldIdPatient.setText("ID");
-        jTextFieldIdPatient.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldID.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTextFieldID.setText("ID");
+        jTextFieldID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldIdPatientFocusGained(evt);
+                jTextFieldIDFocusGained(evt);
             }
         });
-        jTextFieldIdPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldIdPatientActionPerformed(evt);
-            }
-        });
-
-        jComboBoxJour.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxMois.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxAnnee.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxGenre.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
         jButtonRechercher.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jButtonRechercher.setText("Rechercher");
-
-        jRadioButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("Par nom/prénom :");
-
-        jRadioButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Par numéro d'Identification :");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRechercher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                jButtonRechercherActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("Par date de naissance :");
+        jRadioButtonNom.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonNom.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonNom.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonNom.setText("Par Nom/Prénom :");
 
-        jRadioButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("Par genre :");
+        jRadioButtonID.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonID.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonID.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonID.setText("Par numéro d'Identification :");
+
+        jRadioButtonDate.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonDate.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonDate.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonDate.setText("Par date de naissance :");
+
+        jTextFieldAnnee.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldAnnee.setText("AAAA");
+        jTextFieldAnnee.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldAnneeFocusGained(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("/");
+
+        jTextFieldMois.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldMois.setText("MM");
+        jTextFieldMois.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldMoisFocusGained(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("/");
+
+        jTextFieldJour.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldJour.setText("JJ");
+        jTextFieldJour.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldJourFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButtonID)
+                                    .addComponent(jRadioButtonDate))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jRadioButtonNom))
+                        .addGap(48, 331, Short.MAX_VALUE)
+                        .addComponent(jButtonRechercher)
+                        .addGap(9, 9, 9)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldIdPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBoxGenre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPrenom)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonRechercher)
-                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jRadioButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jTextFieldIdPatient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonRechercher))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jRadioButtonNom)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButtonID)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6))
+                            .addComponent(jRadioButtonDate))
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonRechercher)))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(119, 119, 119)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 332, Short.MAX_VALUE)))
-        );
+        jPanel6.add(jPanel2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel6, java.awt.BorderLayout.CENTER);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -386,10 +454,6 @@ public class AccueilSIR extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldIdPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIdPatientActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldIdPatientActionPerformed
 
     private void jButtonAideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAideActionPerformed
         // TODO add your handling code here:
@@ -404,19 +468,25 @@ public class AccueilSIR extends javax.swing.JFrame {
 
     private void jButtonAjouterPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPatientActionPerformed
         // TODO add your handling code here:
-        AjouterPatient addPatient= new AjouterPatient();
-        addPatient.setVisible(true);
+        if (medecinCo.getFunction().equals(Function.Secretaire) || medecinCo.getFunction().equals(Function.Manipulateur)) {
+            AjouterPatient addPatient = new AjouterPatient();
+            addPatient.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
     }//GEN-LAST:event_jButtonAjouterPatientActionPerformed
 
     private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
         // TODO add your handling code here:
-        AjouterPersonnel addPersonnel= new AjouterPersonnel();
-        addPersonnel.setVisible(true);
+        if (medecinCo.getFunction().equals(Function.Secretaire)) {
+            AjouterPersonnel addPersonnel = new AjouterPersonnel();
+            addPersonnel.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
     }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jTextFieldNomFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNomFocusGained
         // TODO add your handling code here:
@@ -428,51 +498,138 @@ public class AccueilSIR extends javax.swing.JFrame {
         jTextFieldPrenom.setText("");
     }//GEN-LAST:event_jTextFieldPrenomFocusGained
 
-    private void jTextFieldIdPatientFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdPatientFocusGained
+    private void jTextFieldIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIDFocusGained
         // TODO add your handling code here:
-        jTextFieldIdPatient.setText("");
-    }//GEN-LAST:event_jTextFieldIdPatientFocusGained
+        jTextFieldID.setText("");
+    }//GEN-LAST:event_jTextFieldIDFocusGained
 
     private void jTableDMRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDMRMouseClicked
         // TODO add your handling code here:
-        AccueilPatient accueilPatient= new AccueilPatient();
-        accueilPatient.setVisible(true);
-        this.dispose();
+        if (medecinCo.getFunction().equals(Function.Manipulateur) || medecinCo.getFunction().equals(Function.Interne) || medecinCo.getFunction().equals(Function.Radiologue)) {
+            int row = jTableDMR.getSelectedRow();
+            int idDMR = (int) jTableDMR.getValueAt(row, 0);
+            DMR dmr = Factory.getPatient(idDMR);
+            AccueilPatient accueilPat = new AccueilPatient(medecinCo, listeDMR, listeStaff, dmr);
+            accueilPat.setVisible(true);
+            this.dispose();
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
     }//GEN-LAST:event_jTableDMRMouseClicked
+
+    private void jTextFieldJourFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldJourFocusGained
+        // TODO add your handling code here:
+        jTextFieldJour.setText("");
+    }//GEN-LAST:event_jTextFieldJourFocusGained
+
+    private void jTextFieldAnneeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAnneeFocusGained
+        // TODO add your handling code here:
+        jTextFieldAnnee.setText("");
+    }//GEN-LAST:event_jTextFieldAnneeFocusGained
+
+    private void jTextFieldMoisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldMoisFocusGained
+        // TODO add your handling code here:
+        jTextFieldMois.setText("");
+    }//GEN-LAST:event_jTextFieldMoisFocusGained
+
+    private void jButtonRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRechercherActionPerformed
+        // TODO add your handling code here:
+        if (jRadioButtonNom.isSelected() == false && jRadioButtonID.isSelected() == false && jRadioButtonDate.isSelected() == false) {
+            System.out.println("error");
+            javax.swing.JOptionPane.showMessageDialog(null, "vous n'avez coché aucune case");
+        }
+        else{
+        ArrayList<DMR> newlisteDMR = listeDMR;
+        if (jRadioButtonNom.isSelected() == true) {
+            newlisteDMR = Factory.rechercheListNom(newlisteDMR, jTextFieldNom.getText(), jTextFieldPrenom.getText());
+        }
+        if (jRadioButtonID.isSelected() == true) {
+            newlisteDMR = Factory.rechercheListID(newlisteDMR, Integer.parseInt(jTextFieldID.getText()));
+        }
+        if (jRadioButtonDate.isSelected() == true) {
+            int j = Integer.parseInt(jTextFieldJour.getText());
+            int m = Integer.parseInt(jTextFieldMois.getText());
+            int a = Integer.parseInt(jTextFieldAnnee.getText());
+            Dates dateN = new Dates(j, m, a);
+            newlisteDMR = Factory.rechercheListDate(newlisteDMR, dateN);
+        }
+        Object[][] newData = new Object[10][6];
+        int k = 0;
+        for (int i = 0; i < newlisteDMR.size(); i++) {
+            newData[k][0] = newlisteDMR.get(i).getId();
+            newData[k][1] = newlisteDMR.get(i).getName();
+            newData[k][2] = newlisteDMR.get(i).getSurname();
+            newData[k][3] = newlisteDMR.get(i).getBirthday().toString();
+            newData[k][4] = newlisteDMR.get(i).getGender().toString();
+            newData[k][5] = newlisteDMR.get(i).dernierExamen().toString();
+        }
+        jTableDMR.setModel(new DefaultTableModel(newData, liste));}
+        
+
+
+    }//GEN-LAST:event_jButtonRechercherActionPerformed
+
+    private void jButtonAjouterExamenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterExamenActionPerformed
+        // TODO add your handling code here:
+        if (medecinCo.getFunction().equals(Function.Secretaire) || medecinCo.getFunction().equals(Function.Manipulateur)) {
+            AjouterExamen addExamen = new AjouterExamen();
+            addExamen.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
+    }//GEN-LAST:event_jButtonAjouterExamenActionPerformed
+
+    private void jButtonAjouterCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterCRActionPerformed
+        // TODO add your handling code here:
+        if (medecinCo.getFunction().equals(Function.Radiologue)) {
+            AjouterCR addCR = new AjouterCR();
+            addCR.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
+    }//GEN-LAST:event_jButtonAjouterCRActionPerformed
+
+    private void jButtonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccueilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAccueilActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel date;
-    private javax.swing.JLabel fonctionID;
-    private javax.swing.JLabel identif;
+    private javax.swing.JLabel fonction;
+    private javax.swing.JLabel id;
+    private javax.swing.JButton jButtonAccueil;
     private javax.swing.JButton jButtonAide;
+    private javax.swing.JButton jButtonAjouterCR;
+    private javax.swing.JButton jButtonAjouterExamen;
     private javax.swing.JButton jButtonAjouterPatient;
     private javax.swing.JButton jButtonAjouterPersonnel;
     private javax.swing.JButton jButtonDeco;
     private javax.swing.JButton jButtonRechercher;
-    private javax.swing.JComboBox<String> jComboBoxAnnee;
-    private javax.swing.JComboBox<Gender> jComboBoxGenre;
-    private javax.swing.JComboBox<String> jComboBoxJour;
-    private javax.swing.JComboBox<String> jComboBoxMois;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButtonDate;
+    private javax.swing.JRadioButton jRadioButtonID;
+    private javax.swing.JRadioButton jRadioButtonNom;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDMR;
-    private javax.swing.JTextField jTextFieldIdPatient;
+    private javax.swing.JTextField jTextFieldAnnee;
+    private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldJour;
+    private javax.swing.JTextField jTextFieldMois;
     private javax.swing.JTextField jTextFieldNom;
     private javax.swing.JTextField jTextFieldPrenom;
+    private javax.swing.JLabel name;
     // End of variables declaration//GEN-END:variables
 }

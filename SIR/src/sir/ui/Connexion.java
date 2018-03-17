@@ -1,5 +1,3 @@
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +6,10 @@
 package sir.ui;
 
 import java.util.ArrayList;
+import sir.nf.Factory;
 import sir.nf.MedicalStaff;
+import sir.nf.DMR;
+
 /**
  *
  * @author solenn
@@ -18,22 +19,13 @@ public class Connexion extends javax.swing.JFrame {
     /**
      * Creates new form Accueil
      */
-    boolean logged = false;
-    String id = null;
-    
-    private MedicalStaff staff = null;
-    
-    
     public Connexion() {
-        
         initComponents();
         this.setTitle("Connexion");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setSize(700, 600);
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -152,9 +144,9 @@ public class Connexion extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Logo2.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/Logo2.jpg"))); // NOI18N
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/image.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/image.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -162,7 +154,7 @@ public class Connexion extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 610, Short.MAX_VALUE)
                 .addComponent(jLabel3))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,7 +163,7 @@ public class Connexion extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
@@ -185,7 +177,7 @@ public class Connexion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1067, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)))
@@ -215,9 +207,24 @@ public class Connexion extends javax.swing.JFrame {
 
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         // TODO add your handling code here:
-        AccueilSIR accueil = new AccueilSIR();
-        accueil.setVisible(true);
-        this.dispose();
+        Factory factory = new Factory();
+        ArrayList<MedicalStaff> listeStaff = factory.getListeMedecin();
+        ArrayList<DMR> listeDMR = factory.getListePatient();
+        int i = 0;
+        
+        while (i < listeStaff.size() && (listeStaff.get(i).getId() != (Integer.parseInt(jTextFieldId.getText())))) {
+            i++;
+        }
+        String mdp = new String(jPasswordField1.getPassword());
+        if (i != listeStaff.size() && listeStaff.get(i).getMdp().equals(mdp)) {
+            MedicalStaff medecinCo = listeStaff.get(i);
+            AccueilSIR accueil = new AccueilSIR(medecinCo, listeDMR, listeStaff);
+            accueil.setVisible(true);
+            this.dispose();
+        }else {
+            System.out.println("error");
+            javax.swing.JOptionPane.showMessageDialog(null, "Mot de passe ou Identifiant incorrect");
+        }
     }//GEN-LAST:event_jButtonOKActionPerformed
 
     /**

@@ -3,26 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/solenn/Documents/0%20Perso/TIS%204/S4/Projet%20SIS/Projet-MIT/SIR/src/sir/ui/AjouterExamen.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Gender.java</file>
             <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Factory.java</file>
-            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AjouterPatient.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Examen.java</file>
             <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AjouterPersonnel.java</file>
-            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/Connexion.java</file>
             <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Main.java</file>
-            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Function.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/ConnBD.java</file>
             <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/MedicalStaff.java</file>
-            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Patient.java</file>
-=======
->>>>>>> 38aba7151652c907aff8a3b2f2cf5dd73219810e
-            <file>file:/C:/Users/solenn/Documents/0%20Perso/TIS%204/S4/Projet%20SIS/Projet-MIT/SIR/src/sir/ui/AccueilSIR.java</file>
-            <file>file:/C:/Users/solenn/Documents/0%20Perso/TIS%204/S4/Projet%20SIS/Projet-MIT/SIR/src/sir/ui/AccueilPatient.java</file>
-            <file>file:/C:/Users/solenn/Documents/0%20Perso/TIS%204/S4/Projet%20SIS/Projet-MIT/SIR/src/sir/ui/AjouterPatient.java</file>
-            <file>file:/C:/Users/solenn/Documents/0%20Perso/TIS%204/S4/Projet%20SIS/Projet-MIT/SIR/src/sir/ui/Connexion.java</file>
->>>>>>> 707ec3ee2a925859f0d388723b590929e6fc3bae
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/DMR.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AfficherImage.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AjouterCR.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/ExamenType.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Test2.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Gender.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Dates.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AjouterExamen.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/Connexion.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/nf/Function.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AccueilPatient.java</file>
+            <file>file:/C:/Users/axelm/Documents/GitHub/Projet-MIT/SIR/src/sir/ui/AccueilSIR.java</file>
         </group>
     </open-files>
 </project-private>

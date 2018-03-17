@@ -16,9 +16,9 @@ public class ConnBD {
 //    private static String passwd = "java";
 //    private static Connection connect;
     
-    private static String url = "jdbc:mysql://mysql-epione.alwaysdata.net:3306/epione_db";
-    private static String user = "epione_db";
-    private static String passwd = "java";
+    private static String url = "jdbc:mysql://mysql-sir-mit.alwaysdata.net:3306/sir-mit_bdd";
+    private static String user = "sir-mit_melina";
+    private static String passwd = "sir-mit-melina";
     /**
      * @see Connexion
      */
@@ -34,6 +34,8 @@ public class ConnBD {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            // rajouter un catch qui, en cas d'erreur, ne se connecte juste pas à la 
+            // base de données. Demander à nono ou voir sur internet
         }
         return connect;
     }

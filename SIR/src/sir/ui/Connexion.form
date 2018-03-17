@@ -30,7 +30,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jPanel1" alignment="0" pref="781" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="0" pref="1067" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -205,7 +205,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="324" max="32767" attributes="0"/>
+                  <EmptySpace pref="610" max="32767" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -217,7 +217,7 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="158" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -226,14 +226,14 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/sir/ui/Logo2.jpg"/>
+              <Image iconType="3" name="/sir/ui/Ressources/Logo2.jpg"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/sir/ui/image.png"/>
+              <Image iconType="3" name="/sir/ui/Ressources/image.png"/>
             </Property>
           </Properties>
         </Component>

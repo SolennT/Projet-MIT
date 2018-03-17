@@ -13,8 +13,10 @@ package sir.nf;
  *
  */
 public enum Function {
-    RADIOLOGUE,
-    INTERNE,
-    MANIPULATEUR
+    Radiologue,
+    Interne,
+    Manipulateur,
+    Exterieur,
+    Secretaire
     ;
 }

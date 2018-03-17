@@ -1,1 +1,8 @@
 /SIR/build/
+/SIR/dist/
+/SIR/API-HL7-Sogeti/Tests/Sources/Client/build/
+/SIR/API-HL7-Sogeti/Tests/Sources/Client/dist/
+/SIR/API-HL7-Sogeti/Tests/Sources/Client/nbproject/private/
+/SIR/API-HL7-Sogeti/Tests/Sources/Serveur/build/
+/SIR/API-HL7-Sogeti/Tests/Sources/Serveur/dist/
+/SIR/API-HL7-Sogeti/Tests/Sources/Serveur/nbproject/private/

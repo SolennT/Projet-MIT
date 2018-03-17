@@ -1,0 +1,9 @@
+Two high-level tests are implemented:
+- Client: this test build a GUI to generate client HL7 messages and send them to the server
+- Server: this program helps to set up and start a HL7 server
+
+Both tests can be/have to be used at the same time.
+
+This directory contains:
+- Sources: netbeans project containing the sources of the tests
+- Dist: distribution (jar that can be run independantly, see their README files for more information)

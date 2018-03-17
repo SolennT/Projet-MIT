@@ -5,42 +5,114 @@
  */
 package sir.ui;
 
+import com.pixelmed.dicom.DicomException;
+import java.util.ArrayList;
+import javax.swing.RowSorter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import sir.nf.DMR;
+import sir.nf.Dates;
+import sir.nf.Examen;
+import sir.nf.Factory;
+import sir.nf.MedicalStaff;
+import sir.nf.ExamenType;
+import com.pixelmed.display.SingleImagePanel;
+import com.pixelmed.display.SourceImage;
+import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sir.nf.Function;
+import sir.nf.Impression;
+
 /**
  *
  * @author solenn
  */
 public class AccueilPatient extends javax.swing.JFrame {
 
-    private String fonction;
-    private String id;
+    private MedicalStaff medecinCo;
+    private ArrayList<DMR> listeDMR;
+    private ArrayList<MedicalStaff> listeStaff;
+    private ArrayList<Examen> listeExam;
+    private DMR dmr;
+    private Examen examen;
+
+    private String[] liste;
 
     /**
      * Creates new customizer AccueilPatient
      */
-    public AccueilPatient() {
+    public AccueilPatient(MedicalStaff medecinCo, ArrayList<DMR> listeDMR, ArrayList<MedicalStaff> listeStaff, DMR dmr) {
         initComponents();
-        this.setTitle("AccueilPatient");
+        this.setTitle("Accueil DMR");
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+
+        this.medecinCo = medecinCo;
+        this.listeDMR = listeDMR;
+        this.listeStaff = listeStaff;
+        this.dmr = dmr;
+        this.examen = null;
+        this.listeExam = dmr.recupExamen();
+
+        id.setText(Integer.toString(medecinCo.getId()));
+        name.setText(medecinCo.getName() + " " + medecinCo.getSurname());
+        fonction.setText(medecinCo.getFunction().toString());
         String format = "dd/MM/yy";
         java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
         java.util.Date d = new java.util.Date();
         date.setText(formater.format(d));
-    }
-    
-     public AccueilPatient(String fonction, String id) {
-        initComponents();
-        this.setTitle("Accueil");
-        this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.id = id;
-        this.fonction = fonction;
-        this.setLocationRelativeTo(null);
-        identif.setText(id);
-        fonctionID.setText(fonction);
-        String format = "dd/MM/yy";
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
-        java.util.Date d = new java.util.Date();
-        date.setText(formater.format(d));
+
+        ident.setText(Integer.toString(dmr.getId()));
+        genre.setText(dmr.getGender().toString());
+        nomPat.setText(dmr.getName());
+        prenomPat.setText(dmr.getSurname());
+        dateNPat.setText(dmr.getBirthday().afficherDateN());
+
+        Object[][] dataExam = new Object[listeExam.size()][8];
+        this.liste = new String[8];
+        this.liste[0] = "Prioritaire";
+        this.liste[1] = "Id Examen";
+        this.liste[2] = "Type";
+        this.liste[3] = "Date Examen";
+        this.liste[4] = "Prescripteur";
+        this.liste[5] = "Responsable Radio";
+        this.liste[6] = "Compte-Rendu";
+        this.liste[7] = "Lien PACS";
+        for (int i = 0; i < listeExam.size(); i++) {
+            if (listeExam.get(i).isPrioritaire()) {
+                dataExam[i][0] = "V";
+            } else {
+                dataExam[i][0] = " ";
+            }
+            dataExam[i][1] = listeExam.get(i).getId_examen();
+            dataExam[i][2] = listeExam.get(i).getExamenType().toString();
+            dataExam[i][3] = listeExam.get(i).getDate();
+            dataExam[i][4] = listeExam.get(i).getPrescripteur();
+            dataExam[i][5] = listeExam.get(i).getResponsableRadio();
+            if (listeExam.get(i).getReport() != null) {
+                dataExam[i][6] = "V";
+            } else {
+                dataExam[i][6] = "F";
+            }
+            if (listeExam.get(i).getPacsID() != null) {
+                dataExam[i][7] = "V";
+            } else {
+                dataExam[i][7] = "F";
+            }
+        }
+        DefaultTableModel dtm = new DefaultTableModel(dataExam, liste);
+        jTableExamen.setModel(dtm);
+        jTableExamen.getColumnModel().getColumn(0).setCellRenderer(new CouleurCellRenderer());
+        jTableExamen.getColumnModel().getColumn(6).setCellRenderer(new ImageCellRenderer());
+        jTableExamen.getColumnModel().getColumn(7).setCellRenderer(new ImageCellRenderer());
+        RowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtm);
+        jTableExamen.setRowSorter(sorter);
+        
+        jSplitImage.setOneTouchExpandable(true);
+        jSplitImage.setDividerLocation(100);
+
     }
 
     /**
@@ -56,32 +128,51 @@ public class AccueilPatient extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         date = new javax.swing.JLabel();
-        identif = new javax.swing.JLabel();
-        fonctionID = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        fonction = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButtonAjouterExamen = new javax.swing.JButton();
         jButtonDeco = new javax.swing.JButton();
         jButtonAide = new javax.swing.JButton();
-        jButtonRetour = new javax.swing.JButton();
+        jButtonAccueil = new javax.swing.JButton();
+        jButtonAjouterPatient = new javax.swing.JButton();
+        jButtonAjouterPersonnel = new javax.swing.JButton();
+        jButtonAjouterCR = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableDMR1 = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBoxJour = new javax.swing.JComboBox<>();
-        jComboBoxMois = new javax.swing.JComboBox<>();
-        jComboBoxAnnee = new javax.swing.JComboBox<>();
-        jComboBoxGenre = new javax.swing.JComboBox<>();
-        jButtonRechercher = new javax.swing.JButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        ident = new javax.swing.JLabel();
+        genre = new javax.swing.JLabel();
+        nomPat = new javax.swing.JLabel();
+        prenomPat = new javax.swing.JLabel();
+        dateNPat = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableImage = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableExamen = new javax.swing.JTable();
+        jRadioButtonDate = new javax.swing.JRadioButton();
+        jButtonRechercher = new javax.swing.JButton();
+        jTextFieldJour = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jComboBoxType = new javax.swing.JComboBox<ExamenType>(ExamenType.values());
+        jRadioButtonType = new javax.swing.JRadioButton();
+        jTextFieldID = new javax.swing.JTextField();
+        jRadioButtonID = new javax.swing.JRadioButton();
+        jTextFieldAnnee = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jTextFieldMois = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jSplitImage = new javax.swing.JSplitPane();
+        Image2 = new javax.swing.JInternalFrame();
+        Image1 = new javax.swing.JInternalFrame();
+        jPanel10 = new javax.swing.JPanel();
+        jLabelCR = new javax.swing.JLabel();
+        jLabelPACS = new javax.swing.JLabel();
+        JButtonImpression = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -90,7 +181,7 @@ public class AccueilPatient extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         Logo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Logo2.jpg"))); // NOI18N
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/Logo2.jpg"))); // NOI18N
         Logo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
@@ -102,52 +193,83 @@ public class AccueilPatient extends javax.swing.JFrame {
         date.setText("Date");
         jPanel4.add(date);
 
-        identif.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        identif.setForeground(new java.awt.Color(174, 203, 248));
-        identif.setText("Identifiant");
-        jPanel4.add(identif);
+        id.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        id.setForeground(new java.awt.Color(174, 203, 248));
+        id.setText("Identifiant");
+        jPanel4.add(id);
 
-        fonctionID.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        fonctionID.setForeground(new java.awt.Color(174, 203, 248));
-        fonctionID.setText("Fonction");
-        jPanel4.add(fonctionID);
+        name.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        name.setForeground(new java.awt.Color(174, 203, 248));
+        name.setText("Nom - Prénom");
+        jPanel4.add(name);
+
+        fonction.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        fonction.setForeground(new java.awt.Color(174, 203, 248));
+        fonction.setText("Fonction");
+        jPanel4.add(fonction);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonAjouterExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/AjouterExamenPt.jpg"))); // NOI18N
+        jButtonAjouterExamen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterExamenPT.jpg"))); // NOI18N
         jButtonAjouterExamen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAjouterExamenActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAjouterExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 80, -1));
+        jPanel5.add(jButtonAjouterExamen, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 80, -1));
 
         jButtonDeco.setBackground(new java.awt.Color(174, 203, 248));
-        jButtonDeco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/deco.png"))); // NOI18N
+        jButtonDeco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/deco.png"))); // NOI18N
         jButtonDeco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDecoActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonDeco, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, -1, 40));
+        jPanel5.add(jButtonDeco, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, -1, 40));
 
-        jButtonAide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/help.png"))); // NOI18N
+        jButtonAide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/help.png"))); // NOI18N
         jButtonAide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAideActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonAide, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 40));
+        jPanel5.add(jButtonAide, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, -1, 40));
 
-        jButtonRetour.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Accueil.jpg"))); // NOI18N
-        jButtonRetour.setContentAreaFilled(false);
-        jButtonRetour.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAccueil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/Accueil.jpg"))); // NOI18N
+        jButtonAccueil.setContentAreaFilled(false);
+        jButtonAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRetourActionPerformed(evt);
+                jButtonAccueilActionPerformed(evt);
             }
         });
-        jPanel5.add(jButtonRetour, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 50, 60));
+        jPanel5.add(jButtonAccueil, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 60, 50));
+
+        jButtonAjouterPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterPatientPetit.jpg"))); // NOI18N
+        jButtonAjouterPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterPatientActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAjouterPatient, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 80, -1));
+
+        jButtonAjouterPersonnel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/ajouterPersonnelPetit.jpg"))); // NOI18N
+        jButtonAjouterPersonnel.setEnabled(false);
+        jButtonAjouterPersonnel.setInheritsPopupMenu(true);
+        jButtonAjouterPersonnel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterPersonnelActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAjouterPersonnel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 80, 110));
+
+        jButtonAjouterCR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/AjouterCrP.jpg"))); // NOI18N
+        jButtonAjouterCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterCRActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButtonAjouterCR, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 80, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,149 +280,72 @@ public class AccueilPatient extends javax.swing.JFrame {
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Logo)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Logo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(174, 203, 248));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jPanel9.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel9.setPreferredSize(new java.awt.Dimension(668, 300));
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jTableDMR1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableDMR1);
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel8.setText("Rechercher:");
-        jLabel8.setToolTipText("");
-
-        jComboBoxJour.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxMois.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxAnnee.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jComboBoxGenre.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-
-        jButtonRechercher.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jButtonRechercher.setText("Rechercher");
-
-        jRadioButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("Par date :");
-
-        jRadioButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jRadioButton4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton4.setText("Par type :");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(240, 277, Short.MAX_VALUE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRechercher)
-                        .addGap(20, 20, 20))))
-            .addComponent(jScrollPane1)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonRechercher))))
-                .addGap(76, 76, 76)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel9, java.awt.BorderLayout.CENTER);
-
         jPanel7.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(174, 203, 248), 2));
-        jPanel7.setMinimumSize(new java.awt.Dimension(100, 100));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(148, 203, 248)));
+        jPanel7.setPreferredSize(new java.awt.Dimension(150, 322));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel2.setText("Patient : ");
+        jLabel2.setText("Patient");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel3.setText("ID");
+        ident.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        ident.setForeground(new java.awt.Color(174, 203, 248));
+        ident.setText("ID");
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel4.setText("Genre");
+        genre.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        genre.setForeground(new java.awt.Color(174, 203, 248));
+        genre.setText("Genre");
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel5.setText("Nom");
+        nomPat.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        nomPat.setForeground(new java.awt.Color(174, 203, 248));
+        nomPat.setText("Nom");
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel6.setText("Prenom");
+        prenomPat.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        prenomPat.setForeground(new java.awt.Color(174, 203, 248));
+        prenomPat.setText("Prenom");
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(174, 203, 248));
-        jLabel7.setText("Date de N");
+        dateNPat.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        dateNPat.setForeground(new java.awt.Color(174, 203, 248));
+        dateNPat.setText("DateN");
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jTableImage.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTableImage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Numero", "Image"
+            }
+        ));
+        jTableImage.setAutoscrolls(false);
+        jTableImage.setRowHeight(50);
+        jTableImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableImageMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableImage);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -311,41 +356,267 @@ public class AccueilPatient extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)))
+                            .addComponent(ident)
+                            .addComponent(genre)
+                            .addComponent(nomPat)
+                            .addComponent(prenomPat)
+                            .addComponent(dateNPat)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel2)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ident)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(genre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nomPat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(prenomPat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dateNPat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
         );
 
         jPanel2.add(jPanel7, java.awt.BorderLayout.WEST);
+
+        jPanel8.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(148, 203, 248)));
+        jPanel9.setPreferredSize(new java.awt.Dimension(80, 160));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jTableExamen.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jTableExamen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Prioritaire", "ID Examen", "Type Examen", "Date Examen", "Prescripteur", "Responsable Radio", "Compte-Rendu", "Lien PACS"
+            }
+        ));
+        jTableExamen.setRowHeight(20);
+        jTableExamen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableExamenMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableExamen);
+
+        jRadioButtonDate.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonDate.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonDate.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonDate.setText("Par date :");
+
+        jButtonRechercher.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jButtonRechercher.setText("Rechercher");
+        jButtonRechercher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRechercherActionPerformed(evt);
+            }
+        });
+
+        jTextFieldJour.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldJour.setText("JJ");
+        jTextFieldJour.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldJourFocusGained(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel3.setText("Rechercher:");
+        jLabel3.setToolTipText("");
+
+        jComboBoxType.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+
+        jRadioButtonType.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonType.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonType.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonType.setText("Par type : ");
+
+        jTextFieldID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldID.setText("Identifiant");
+        jTextFieldID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldIDFocusGained(evt);
+            }
+        });
+
+        jRadioButtonID.setBackground(new java.awt.Color(0, 0, 0));
+        jRadioButtonID.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jRadioButtonID.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonID.setText("Par identifiant : ");
+
+        jTextFieldAnnee.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldAnnee.setText("AAAA");
+        jTextFieldAnnee.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldAnneeFocusGained(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("/");
+
+        jTextFieldMois.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldMois.setText("MM");
+        jTextFieldMois.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldMoisFocusGained(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("/");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(jRadioButtonDate)
+                            .addGap(12, 12, 12)
+                            .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(67, 67, 67)
+                            .addComponent(jRadioButtonType)
+                            .addGap(6, 6, 6)
+                            .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(73, 73, 73)
+                            .addComponent(jRadioButtonID)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                            .addComponent(jButtonRechercher))
+                        .addComponent(jScrollPane1))
+                    .addContainerGap()))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 163, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGap(31, 31, 31)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldJour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jRadioButtonType)
+                            .addComponent(jComboBoxType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButtonID)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonRechercher))
+                        .addComponent(jRadioButtonDate))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jPanel8.add(jPanel9, java.awt.BorderLayout.NORTH);
+
+        jPanel12.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(174, 203, 248)));
+        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
+
+        Image2.setVisible(true);
+
+        javax.swing.GroupLayout Image2Layout = new javax.swing.GroupLayout(Image2.getContentPane());
+        Image2.getContentPane().setLayout(Image2Layout);
+        Image2Layout.setHorizontalGroup(
+            Image2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        Image2Layout.setVerticalGroup(
+            Image2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 471, Short.MAX_VALUE)
+        );
+
+        jSplitImage.setRightComponent(Image2);
+
+        Image1.setVisible(true);
+
+        javax.swing.GroupLayout Image1Layout = new javax.swing.GroupLayout(Image1.getContentPane());
+        Image1.getContentPane().setLayout(Image1Layout);
+        Image1Layout.setHorizontalGroup(
+            Image1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        Image1Layout.setVerticalGroup(
+            Image1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 471, Short.MAX_VALUE)
+        );
+
+        jSplitImage.setLeftComponent(Image1);
+
+        jPanel12.add(jSplitImage);
+
+        jPanel8.add(jPanel12, java.awt.BorderLayout.CENTER);
+
+        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(174, 203, 248)));
+        jPanel10.setPreferredSize(new java.awt.Dimension(300, 300));
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jLabelCR.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabelCR.setForeground(new java.awt.Color(174, 203, 248));
+        jLabelCR.setText("Compte rendu");
+        jPanel10.add(jLabelCR, java.awt.BorderLayout.CENTER);
+
+        jLabelPACS.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabelPACS.setForeground(new java.awt.Color(174, 203, 248));
+        jLabelPACS.setText("Lien PACS");
+        jPanel10.add(jLabelPACS, java.awt.BorderLayout.PAGE_START);
+
+        JButtonImpression.setText("Impression");
+        JButtonImpression.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonImpressionActionPerformed(evt);
+            }
+        });
+        jPanel10.add(JButtonImpression, java.awt.BorderLayout.PAGE_END);
+
+        jPanel8.add(jPanel10, java.awt.BorderLayout.EAST);
+
+        jPanel2.add(jPanel8, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -353,11 +624,11 @@ public class AccueilPatient extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 383, Short.MAX_VALUE)))
+                    .addGap(0, 677, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel6, java.awt.BorderLayout.CENTER);
@@ -365,7 +636,7 @@ public class AccueilPatient extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -377,8 +648,13 @@ public class AccueilPatient extends javax.swing.JFrame {
 
     private void jButtonAjouterExamenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterExamenActionPerformed
         // TODO add your handling code here:
-        AjouterExamen addExamen = new AjouterExamen();
-        addExamen.setVisible(true);
+        if (medecinCo.getFunction().equals(Function.Manipulateur)) {
+            AjouterExamen addExamen = new AjouterExamen(dmr);
+            addExamen.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
     }//GEN-LAST:event_jButtonAjouterExamenActionPerformed
 
     private void jButtonDecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDecoActionPerformed
@@ -392,47 +668,254 @@ public class AccueilPatient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAideActionPerformed
 
-    private void jButtonRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetourActionPerformed
+    private void jButtonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAccueilActionPerformed
         // TODO add your handling code here:
-        AccueilSIR accueil = new AccueilSIR();
+        AccueilSIR accueil = new AccueilSIR(medecinCo, listeDMR, listeStaff);
         accueil.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButtonRetourActionPerformed
+    }//GEN-LAST:event_jButtonAccueilActionPerformed
+
+    private void jTableExamenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableExamenMouseClicked
+        // TODO add your handling code here:
+        int row = jTableExamen.getSelectedRow();
+        String idExam = (String) jTableExamen.getValueAt(row, 1);
+        examen = dmr.rechercheExam(idExam);
+
+        if (medecinCo.getFunction().equals(Function.Radiologue)) {
+            jLabelCR.setText("Aucun Compte rendu");
+            jLabelPACS.setText("Aucun Lien Pacs");
+            if (examen.getReport() != null) {
+                jLabelCR.setText("Compte rendu : " + examen.getReport());
+            }
+            if (examen.getPacsID() != null) {
+                jLabelPACS.setText("ID Pacs : " + examen.getPacsID());
+            }
+        } else {
+            jLabelCR.setText("Aucun Compte rendu");
+            jLabelPACS.setText("Aucun Lien Pacs");
+            if (examen.getReport() != null) {
+                jLabelCR.setText("Compte rendu : Non Accessible");
+            }
+            if (examen.getPacsID() != null) {
+                jLabelPACS.setText("ID Pacs : Non Accessible");
+            }
+        }
+
+        Object[][] dataImage = new Object[3][2];
+        String[] columnNames = {"Numéro", "Image"};
+        for (int i = 0; i < 3; i++) {
+            int a = i + 1;
+            dataImage[i][0] = a;
+            dataImage[i][1] = "src/sir/ui/Ressources/dicom/image" + a + ".dcm";
+        }
+        jTableImage.setModel(new DefaultTableModel(dataImage, columnNames));
+    }//GEN-LAST:event_jTableExamenMouseClicked
+
+    private void jTextFieldIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIDFocusGained
+        // TODO add your handling code here:
+        jTextFieldID.setText("");
+    }//GEN-LAST:event_jTextFieldIDFocusGained
+
+    private void jTextFieldJourFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldJourFocusGained
+        // TODO add your handling code here:
+        jTextFieldJour.setText("");
+    }//GEN-LAST:event_jTextFieldJourFocusGained
+
+    private void jTextFieldMoisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldMoisFocusGained
+        // TODO add your handling code here:
+        jTextFieldMois.setText("");
+    }//GEN-LAST:event_jTextFieldMoisFocusGained
+
+    private void jTextFieldAnneeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAnneeFocusGained
+        // TODO add your handling code here:
+        jTextFieldAnnee.setText("");
+    }//GEN-LAST:event_jTextFieldAnneeFocusGained
+
+    private void jButtonAjouterCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterCRActionPerformed
+        // TODO add your handling code here:
+        if (medecinCo.getFunction().equals(Function.Radiologue)) {
+            AjouterCR addCR = new AjouterCR(examen, dmr);
+            addCR.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
+    }//GEN-LAST:event_jButtonAjouterCRActionPerformed
+
+    private void jButtonRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRechercherActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Examen> newlisteExam = listeExam;
+        if (jRadioButtonDate.isSelected() == true) {
+            int j = Integer.parseInt(jTextFieldJour.getText());
+            int m = Integer.parseInt(jTextFieldMois.getText());
+            int a = Integer.parseInt(jTextFieldAnnee.getText());
+            Dates dateE = new Dates(j, m, a);
+            newlisteExam = Factory.rechercheListDateExam(newlisteExam, dateE);
+        }
+        if (jRadioButtonType.isSelected() == true) {
+            newlisteExam = Factory.rechercheListTypeExam(newlisteExam, (ExamenType) jComboBoxType.getSelectedItem());
+        }
+        if (jRadioButtonID.isSelected() == true) {
+            newlisteExam = Factory.rechercheListIDExam(newlisteExam, jTextFieldID.getText());
+        }
+        Object[][] newDataExam = new Object[newlisteExam.size()][8];
+        int k = 0;
+        for (int i = 0; i < newlisteExam.size(); i++) {
+            newDataExam[k][0] = newlisteExam.get(i).isPrioritaire();
+            newDataExam[k][1] = newlisteExam.get(i).getId_examen();
+            newDataExam[k][2] = newlisteExam.get(i).getExamenType().toString();
+            newDataExam[k][3] = newlisteExam.get(i).getDate();
+            newDataExam[k][4] = newlisteExam.get(i).getPrescripteur();
+            newDataExam[k][5] = newlisteExam.get(i).getResponsableRadio();
+            newDataExam[k][6] = newlisteExam.get(i).getReport();
+            newDataExam[k][7] = newlisteExam.get(i).getPacsID();
+        }
+        jTableExamen.setModel(new DefaultTableModel(newDataExam, liste));
+        jTableExamen.getColumnModel().getColumn(0).setCellRenderer(new CouleurCellRenderer());
+        jTableExamen.getColumnModel().getColumn(6).setCellRenderer(new ImageCellRenderer());
+        jTableExamen.getColumnModel().getColumn(7).setCellRenderer(new ImageCellRenderer());
+        if (jRadioButtonType.isSelected() == false && jRadioButtonID.isSelected() == false && jRadioButtonDate.isSelected() == false) {
+            System.out.println("error");
+            javax.swing.JOptionPane.showMessageDialog(null, "vous n'avez coché aucune case");
+        }
+    }//GEN-LAST:event_jButtonRechercherActionPerformed
+
+    private void jButtonAjouterPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPatientActionPerformed
+        // TODO add your handling code here:
+        if (medecinCo.getFunction().equals(Function.Manipulateur)) {
+            AjouterPatient addPatient = new AjouterPatient();
+            addPatient.setVisible(true);
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
+    }//GEN-LAST:event_jButtonAjouterPatientActionPerformed
+
+    private void jTableImageMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableImageMousePressed
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+            int row = jTableImage.getSelectedRow();
+            SingleImagePanel image = null;
+            try {
+                image = new SingleImagePanel(new SourceImage((String) jTableImage.getValueAt(row, 1)));
+            } catch (IOException ex) {
+                Logger.getLogger(AccueilPatient.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DicomException ex) {
+                Logger.getLogger(AccueilPatient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if ((Image1.getComponentCount() == 0) || (Image2.getComponentCount() > 0)) {
+                Image1.removeAll();
+                Image1.add(image);
+                Image1.setBackground(Color.BLACK);
+            } else {
+                Image2.removeAll();
+                Image2.add(image);
+                Image2.setBackground(Color.BLACK);
+            }
+        }
+        if (evt.getClickCount() == 2) {
+            if (medecinCo.getFunction().equals(Function.Radiologue) || medecinCo.getFunction().equals(Function.Manipulateur)) {
+                int row = jTableImage.getSelectedRow();
+                int numero = (int) jTableImage.getValueAt(row, 0);
+                //SingleImagePanel image = dmr.getListExamens().get(numero);
+                SingleImagePanel image = null;
+                try {
+                    image = new SingleImagePanel(new SourceImage("src/sir/ui/Ressources/dicom/image" + numero + ".dcm"));
+                    AfficherImage affImage = new AfficherImage(image);
+                    affImage.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(AccueilPatient.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DicomException ex) {
+                    Logger.getLogger(AccueilPatient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                System.out.println("Echec");
+                javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+            }
+        }
+    }//GEN-LAST:event_jTableImageMousePressed
+
+    private void JButtonImpressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonImpressionActionPerformed
+        // TODO add your handling code here:
+        if (medecinCo.getFunction().equals(Function.Radiologue)) {
+            if (examen != null) {
+                Impression impression = null;
+                try {
+                    impression = new Impression(dmr, examen);
+                    impression.Impression();
+                } catch (IOException ex) {
+                    Logger.getLogger(AccueilPatient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                System.out.println("Echec d'impression");
+                javax.swing.JOptionPane.showMessageDialog(null, "Veuillez selectionner un examen");
+            }
+        } else {
+            System.out.println("Echec");
+            javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+        }
+    }//GEN-LAST:event_JButtonImpressionActionPerformed
+
+    private void jButtonAjouterPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterPersonnelActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Echec");
+        javax.swing.JOptionPane.showMessageDialog(null, "Accès non autorisé");
+    }//GEN-LAST:event_jButtonAjouterPersonnelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame Image1;
+    private javax.swing.JInternalFrame Image2;
+    private javax.swing.JButton JButtonImpression;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel date;
-    private javax.swing.JLabel fonctionID;
-    private javax.swing.JLabel identif;
+    private javax.swing.JLabel dateNPat;
+    private javax.swing.JLabel fonction;
+    private javax.swing.JLabel genre;
+    private javax.swing.JLabel id;
+    private javax.swing.JLabel ident;
+    private javax.swing.JButton jButtonAccueil;
     private javax.swing.JButton jButtonAide;
+    private javax.swing.JButton jButtonAjouterCR;
     private javax.swing.JButton jButtonAjouterExamen;
+    private javax.swing.JButton jButtonAjouterPatient;
+    private javax.swing.JButton jButtonAjouterPersonnel;
     private javax.swing.JButton jButtonDeco;
     private javax.swing.JButton jButtonRechercher;
-    private javax.swing.JButton jButtonRetour;
-    private javax.swing.JComboBox<String> jComboBoxAnnee;
-    private javax.swing.JComboBox<String> jComboBoxGenre;
-    private javax.swing.JComboBox<String> jComboBoxJour;
-    private javax.swing.JComboBox<String> jComboBoxMois;
+    private javax.swing.JComboBox<ExamenType> jComboBoxType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelCR;
+    private javax.swing.JLabel jLabelPACS;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButtonDate;
+    private javax.swing.JRadioButton jRadioButtonID;
+    private javax.swing.JRadioButton jRadioButtonType;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableDMR1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitImage;
+    private javax.swing.JTable jTableExamen;
+    private javax.swing.JTable jTableImage;
+    private javax.swing.JTextField jTextFieldAnnee;
+    private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldJour;
+    private javax.swing.JTextField jTextFieldMois;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel nomPat;
+    private javax.swing.JLabel prenomPat;
     // End of variables declaration//GEN-END:variables
 }
