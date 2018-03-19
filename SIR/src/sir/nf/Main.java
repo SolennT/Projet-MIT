@@ -38,8 +38,9 @@ public class Main {
         test = Factory.getListeMedecin();
 
         int i = 0;
-        DMR p = Factory.getPatient(3);
-        System.out.println(p.getName() + " " + p.getSurname());
+        DMR p = Factory.getPatient(2);
+        
+        System.out.println(p.getBirthday().afficherDateN());
 //        for (MedicalStaff dmr:test){
 //            
 //            System.out.println(dmr.getFunctionStr());
@@ -49,11 +50,12 @@ public class Main {
 //            System.out.println(dmr.getId());
 //        }
         ArrayList<Examen> exams = new ArrayList();
-        exams = Factory.getListeExam(1);
+        
+        String idtest = "4";
+        exams = Factory.getListeExam(Integer.parseInt(idtest));
         for (Examen e : exams) {
-            i++;
-            System.out.println(i);
-            System.out.println(e.getDate().toString());
+            
+            System.out.println(e.getReport());
             
             
         }

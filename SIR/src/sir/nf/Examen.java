@@ -5,6 +5,8 @@
  */
 package sir.nf;
 
+import java.util.ArrayList;
+
 /**
  *
  * @brief classe comportant un lien avec le PACS et un compte rendu d'examen.
@@ -17,7 +19,8 @@ public class Examen {
     private Dates date;
     private MedicalStaff responsableRadio;
     private MedicalStaff prescripteur;
-    private String id_examen;//id crée automatiquement par la bdd
+    private ArrayList<String> Paths;
+    private int id_examen;//id crée automatiquement par la bdd
     private boolean prioritaire = false;
    
             
@@ -31,7 +34,7 @@ public class Examen {
         
     }
 
-    public Examen(java.sql.Date date,String id_examen, int id_patient, String type, String id_responsableRadio) {
+    public Examen(java.sql.Date date,int id_examen, int id_patient, String type, String id_responsableRadio) {
         this.id_examen=id_examen;
         // patient = Factory.getPatient(id_patient)
         // this.responsableRadio = Factory.getMedicalStaff(id_responsableRadio)
@@ -40,17 +43,21 @@ public class Examen {
         this.examenType = ExamenType.valueOf(type);
         
     }
-    public Examen(Dates date,String id_examen, int id_patient, String type, String id_responsableRadio) {
+    public Examen(Dates date,int id_examen, int id_patient, String type, int id_responsableRadio, int id_prescripteur, String pacs, String cr, boolean prio, String path) {
         this.id_examen=id_examen;
         // patient = Factory.getPatient(id_patient)
-        // this.responsableRadio = Factory.getMedicalStaff(id_responsableRadio)
         this.date = date;
-        this.responsableRadio = responsableRadio;
+        this.prescripteur = Factory.rechercheMedicalStaffId(id_prescripteur);
+        this.responsableRadio = Factory.rechercheMedicalStaffId(id_responsableRadio);
         this.examenType = ExamenType.valueOf(type);
-        
+        this.pacsID = pacs;
+        this.report = cr;
+        this.prioritaire = prio;
+        this.Paths = new ArrayList<String>();
+        this.Paths.add(path);
     }
     
-    public Examen(Dates date,String id_examen, int id_patient, String type, String id_responsableRadio, String lienPacs) {
+    public Examen(Dates date,int id_examen, int id_patient, String type, String id_responsableRadio, String lienPacs) {
         this.id_examen=id_examen;
         // patient = Factory.getPatient(id_patient)
         // this.responsableRadio = Factory.getMedicalStaff(id_responsableRadio)
@@ -98,7 +105,7 @@ public class Examen {
     /**
      * @return the id_examen
      */
-    public String getId_examen() {
+    public int getId_examen() {
         return id_examen;
     }
 
@@ -124,6 +131,13 @@ public class Examen {
         if (this.report == null){
             report = cr;
         }
+    }
+
+    /**
+     * @return the Paths
+     */
+    public ArrayList<String> getPaths() {
+        return Paths;
     }
     
 }

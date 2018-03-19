@@ -5,8 +5,10 @@
  */
 package sir.ui;
 
+import java.util.ArrayList;
 import sir.nf.DMR;
 import sir.nf.Examen;
+import sir.nf.Factory;
 
 /**
  *
@@ -16,6 +18,7 @@ public class AjouterCR extends javax.swing.JFrame {
 
     private Examen exam;
     private DMR dmr;
+
     /**
      * Creates new customizer AjouterCR
      */
@@ -25,20 +28,23 @@ public class AjouterCR extends javax.swing.JFrame {
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setSize(500,450);
+        this.setSize(500, 450);
         this.exam = exam;
         this.dmr = dmr;
         jTextFieldIdPatient.setText(Integer.toString(dmr.getId()));
-        jTextFieldIdExam.setText(exam.getId_examen());
+        jTextFieldIdExam.setText("" + exam.getId_examen());
+        if (exam.getPacsID().equals("DMR Papier")) {
+            jTextFieldPACS.setText(exam.getPacsID());
+        }
     }
-    
+
     public AjouterCR() {
         initComponents();
         this.setTitle("CompleterExamen");
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setSize(500,450);
+        this.setSize(500, 450);
     }
 
     /**
@@ -214,8 +220,15 @@ public class AjouterCR extends javax.swing.JFrame {
 
     private void jButtonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnregistrerActionPerformed
         // TODO add your handling code here:
-        
-        exam.EcrireCR(CR.getText());
+        int id_patient = Integer.parseInt(jTextFieldIdPatient.getText());
+        int id_exam = Integer.parseInt(jTextFieldIdExam.getText());
+        String lienPACS;
+        if (exam.getPacsID().equals("DMR Papier")) {
+            lienPACS = "DMR Papier";
+        } else {
+            lienPACS = jTextFieldPACS.getText();
+        }
+        Factory.ecrireCRPACS(id_patient, id_exam, CR.getText(), lienPACS);
         this.dispose();
     }//GEN-LAST:event_jButtonEnregistrerActionPerformed
 

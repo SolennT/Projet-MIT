@@ -270,30 +270,41 @@ public class Factory {
             state.setInt(1, id);
             state.execute();
             ResultSet res = state.getResultSet();
-            res.next();
-            while (b&&res.last()) {
+            
+            while (b && res.next()) {
+
                 if (!res.isLast()) {
-                String id_examen = res.getString("id_examen");
-                String id_responsableRadio = res.getString("ph_interprete");
-                String type = res.getString("type_examen");
-                java.sql.Date date = res.getDate("date_examen");
-                int heures = res.getInt("heures");
-                int minutes = res.getInt("minutes");
-                Dates d = new Dates(date, heures, minutes);
-                Examen exam = new Examen(d, id_examen, id, type, id_responsableRadio);
-                liste.add(exam);
-                res.next();}
-                else{
-                String id_examen = res.getString("id_examen");
-                String id_responsableRadio = res.getString("ph_interprete");
-                String type = res.getString("type_examen");
-                java.sql.Date date = res.getDate("date_examen");
-                int heures = res.getInt("heures");
-                int minutes = res.getInt("minutes");
-                Dates d = new Dates(date, heures, minutes);
-                Examen exam = new Examen(d, id_examen, id, type, id_responsableRadio);
-                liste.add(exam);
-                b=false;
+                    int id_examen = res.getInt("id_examen");
+                    int id_responsableRadio = res.getInt("ph_interprete");
+                    String type = res.getString("type_examen");
+                    java.sql.Date date = res.getDate("date_examen");
+                    int heures = res.getInt("heures");
+                    int minutes = res.getInt("minutes");
+                    int id_prescripteur = res.getInt("superviseur");
+                    String cr = res.getString("compte_rendu");
+                    String url = res.getString("id_pacs");
+                    String path = res.getString("path");
+                    Boolean prio = res.getBoolean("prioritaire");
+                    Dates d = new Dates(date, heures, minutes);
+                     Examen exam = new Examen(d, id_examen, id, type, id_responsableRadio,id_prescripteur, url, cr, prio, path);
+                    liste.add(exam);
+
+                } else {
+                    int id_examen = res.getInt("id_examen");
+                    int id_responsableRadio = res.getInt("ph_interprete");
+                    int id_prescripteur = res.getInt("superviseur");
+                    String type = res.getString("type_examen");
+                    java.sql.Date date = res.getDate("date_examen");
+                    int heures = res.getInt("heures");
+                    int minutes = res.getInt("minutes");
+                    String cr = res.getString("compte_rendu");
+                    String path = res.getString("path");
+                    String url = res.getString("id_pacs");
+                    Boolean prio = res.getBoolean("prioritaire");
+                    Dates d = new Dates(date, heures, minutes);
+                    Examen exam = new Examen(d, id_examen, id, type, id_responsableRadio,id_prescripteur, url, cr, prio, path);
+                    liste.add(exam);
+                    b = false;
                 }
             }
             state.close();
@@ -315,7 +326,7 @@ public class Factory {
             state.execute();
             ResultSet res = state.getResultSet();
             res.next();
-            String id_examen = res.getString("id_examen");
+            int id_examen = res.getInt("id_examen");
             int id_patient = res.getInt("id_patient");
             String id_responsableRadio = res.getString("ph_interprete");
             String type = res.getString("type_examen");
@@ -351,7 +362,7 @@ public class Factory {
             String adresse = res.getString("adresse");
 
             //sir.nf.Dates date = new sir.nf.Dates(birthday);
-            pat = new DMR(name, surname, genre, adresse, birth);
+            pat = new DMR(name, surname, genre, adresse, birth, id);
             state.close();
             res.close();
 
@@ -544,7 +555,7 @@ public class Factory {
         }
         return j;
     }
-
+    
     public static boolean ajouterPath(int id_patient, int id_examen, String path) {
         boolean j = false;
         try {
@@ -570,9 +581,6 @@ public class Factory {
                 PreparedStatement insert = ConnBD.getInstance().prepareStatement(insertion);
                 insert.setString(1, path);
                 insert.setInt(2, id_examen);
-//                java.util.Dates now = new java.util.Dates();
-//                java.sql.Timestamp nownow = new java.sql.Timestamp(now.getTime());
-//                insert.setTimestamp(14, nownow);
                 int i = insert.executeUpdate();
                 if (i == 1) {
                     j = true;
@@ -709,10 +717,10 @@ public class Factory {
         return newlisteExam;
     }
 
-    public static ArrayList<Examen> rechercheListIDExam(ArrayList<Examen> listeExam, String id) {
+    public static ArrayList<Examen> rechercheListIDExam(ArrayList<Examen> listeExam, int id) {
         ArrayList<Examen> newlisteExam = new ArrayList<Examen>();
         for (int i = 0; i < listeExam.size(); i++) {
-            if (listeExam.get(i).getId_examen().equals(id)) {
+            if (listeExam.get(i).getId_examen() == id) {
                 newlisteExam.add(listeExam.get(i));
             }
         }
@@ -725,6 +733,18 @@ public class Factory {
         int i = 0;
         while (i < listeMed.size() && m == null) {
             if (listeMed.get(i).getName() == nom) {
+                m = listeMed.get(i);
+            }
+            i++;
+        }
+        return m;
+    }
+    public static MedicalStaff rechercheMedicalStaffId(int id) {
+        MedicalStaff m = null;
+        ArrayList<MedicalStaff> listeMed = getListeMedecin();
+        int i = 0;
+        while (i < listeMed.size() && m == null) {
+            if (listeMed.get(i).getId() == id) {
                 m = listeMed.get(i);
             }
             i++;

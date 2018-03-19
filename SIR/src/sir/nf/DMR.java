@@ -182,9 +182,10 @@ public class DMR {
         return trie;
     }
 
-    public Examen rechercheExam(String idExam) {
+    public Examen rechercheExam(int idExam) {
         Examen e = null;
         int i = 0;
+        listExamens = this.recupExamen();
         while (i < listExamens.size() && e == null) {
             if (listExamens.get(i).getId_examen() == idExam) {
                 e = listExamens.get(i);

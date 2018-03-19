@@ -72,11 +72,14 @@ public class Dates implements Comparable {
         
     }
     public Dates(java.sql.Date d) {
-        this.annee=d.getYear();
-        this.mois=d.getMonth();
-        this.jour=d.getDay();
-        this.heure = 0;
-        this.minute=0;
+        int an = d.getYear();
+        if (an<=1900){
+        this.annee=an+1900;}
+        else{
+            this.annee =an;
+        }
+        this.mois=d.getMonth()+1;
+        this.jour=d.getDate();
     }
     public Dates(java.sql.Date d, int heure, int minute) {
         int an = d.getYear();
@@ -85,7 +88,7 @@ public class Dates implements Comparable {
         else{
             this.annee =an;
         }
-        this.mois=d.getDay()+1;
+        this.mois=d.getMonth()+1;
         this.jour=d.getDate();
         if(heure>=0 && heure<=23 && minute>=0 && minute<=59){
             this.heure = heure;

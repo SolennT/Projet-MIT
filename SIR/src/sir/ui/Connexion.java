@@ -209,7 +209,6 @@ public class Connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Factory factory = new Factory();
         ArrayList<MedicalStaff> listeStaff = factory.getListeMedecin();
-        ArrayList<DMR> listeDMR = factory.getListePatient();
         int i = 0;
         
         while (i < listeStaff.size() && (listeStaff.get(i).getId() != (Integer.parseInt(jTextFieldId.getText())))) {
@@ -218,7 +217,7 @@ public class Connexion extends javax.swing.JFrame {
         String mdp = new String(jPasswordField1.getPassword());
         if (i != listeStaff.size() && listeStaff.get(i).getMdp().equals(mdp)) {
             MedicalStaff medecinCo = listeStaff.get(i);
-            AccueilSIR accueil = new AccueilSIR(medecinCo, listeDMR, listeStaff);
+            AccueilSIR accueil = new AccueilSIR(medecinCo);
             accueil.setVisible(true);
             this.dispose();
         }else {
