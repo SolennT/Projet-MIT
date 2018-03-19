@@ -63,7 +63,6 @@ public class MedicalStaff {
         this.mdp = mdp;
     }
 
-<<<<<<< HEAD
     MedicalStaff(String name, String surname, String function) {
         this.function = Function.valueOf(function);
         this.name = name;
@@ -81,8 +80,6 @@ public class MedicalStaff {
         return Factory.getListePatient();
     }
 
-=======
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
     /**
      * @return the name
      */

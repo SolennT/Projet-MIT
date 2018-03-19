@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<<<<<<< HEAD
 <Form version="1.2" maxVersion="1.2" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
@@ -9,9 +8,6 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="2"/>
   </SyntheticProperties>
-=======
-<Form version="1.2" maxVersion="1.2" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -22,11 +18,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-<<<<<<< HEAD
     <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-98,0,0,1,-19"/>
-=======
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-59,0,0,1,-11"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -47,11 +39,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-<<<<<<< HEAD
                   <EmptySpace pref="163" max="32767" attributes="0"/>
-=======
-                  <EmptySpace pref="165" max="32767" attributes="0"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
               </Group>
@@ -92,11 +80,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-<<<<<<< HEAD
           <BorderConstraints direction="Center"/>
-=======
-          <BorderConstraints direction="After"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         </Constraint>
       </Constraints>
 
@@ -114,7 +98,6 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -167,60 +150,6 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-=======
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Component id="NomPat" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                          <Component id="PrenomPat" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="typeBox" min="-2" pref="130" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="heureBox" pref="45" max="32767" attributes="0"/>
-                              <Component id="jourBox" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="minuteBox" pref="44" max="32767" attributes="0"/>
-                              <Component id="moisBox" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="anneeBox" min="-2" pref="55" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jRadioButtonMedExt" min="-2" max="-2" attributes="0"/>
-                              <Component id="jRadioButtonMedSIR" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="medSIRBox" max="32767" attributes="0"/>
-                                      <Component id="nomMedBox" pref="130" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="DateNPat" min="-2" max="-2" attributes="0"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="IdPatient" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
@@ -246,11 +175,7 @@
                               <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="typeBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-<<<<<<< HEAD
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-=======
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldJour" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -285,12 +210,8 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jRadioButtonNumerique" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-<<<<<<< HEAD
                           <Component id="jRadioButtonPrioritaire" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
-=======
-                          <Component id="nomMedBox" min="-2" max="-2" attributes="0"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -299,13 +220,7 @@
                           <Component id="jButtonSave" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-<<<<<<< HEAD
                   <EmptySpace max="-2" attributes="0"/>
-=======
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButtonSave" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                   <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -348,41 +263,21 @@
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel11">
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="67" max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="12" style="2"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Medical Imaging Technology - Radiology Information System Exploitation   "/>
               </Properties>
-<<<<<<< HEAD
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                   <BorderConstraints direction="Center"/>
                 </Constraint>
               </Constraints>
-=======
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
             </Component>
           </SubComponents>
         </Container>
@@ -408,12 +303,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Prescripteur :"/>
           </Properties>
-<<<<<<< HEAD
-=======
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;int&gt;"/>
-          </AuxValues>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonMedSIR">
           <Properties>
@@ -436,12 +325,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="M&#xe9;decin Ext&#xe9;rieur"/>
           </Properties>
-<<<<<<< HEAD
-=======
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;int&gt;"/>
-          </AuxValues>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         </Component>
         <Component class="javax.swing.JComboBox" name="medSIRBox">
           <Properties>
@@ -453,11 +336,7 @@
             </Property>
           </Properties>
           <AuxValues>
-<<<<<<< HEAD
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-=======
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;int&gt;"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="nomMedExt">
@@ -538,12 +417,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="PH Responsable : "/>
           </Properties>
-<<<<<<< HEAD
-=======
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;int&gt;"/>
-          </AuxValues>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         </Component>
         <Component class="javax.swing.JComboBox" name="medSIRBox1">
           <Properties>
@@ -555,11 +428,7 @@
             </Property>
           </Properties>
           <AuxValues>
-<<<<<<< HEAD
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-=======
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;int&gt;"/>
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
           </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonPrioritaire">
@@ -592,26 +461,19 @@
             <Property name="text" type="java.lang.String" value="Identifiant Patient :"/>
           </Properties>
         </Component>
-<<<<<<< HEAD
         <Component class="javax.swing.JTextField" name="IdPatient">
-=======
-        <Component class="javax.swing.JTextField" name="nomMedBox">
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Identifiant"/>
           </Properties>
-<<<<<<< HEAD
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="IdPatientFocusGained"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
           </AuxValues>
-=======
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         </Component>
       </SubComponents>
     </Container>

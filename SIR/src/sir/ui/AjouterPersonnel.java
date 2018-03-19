@@ -14,33 +14,19 @@ import sir.nf.MedicalStaff;
  *
  * @author Utilisateur
  */
-<<<<<<< HEAD
 public class AjouterPersonnel extends javax.swing.JFrame {
-=======
-public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.Customizer {
-    
-    private Object bean;
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 
     /**
      * Creates new customizer AjouterPatient
      */
     public AjouterPersonnel() {
         initComponents();
-<<<<<<< HEAD
         this.setTitle("AjouterPersonnel");
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setSize(500, 450);
     }
-=======
-    }
-    
-    public void setObject(Object bean) {
-        this.bean = bean;
-    }
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,20 +53,13 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         setBackground(new java.awt.Color(174, 203, 248));
         setMaximumSize(new java.awt.Dimension(501, 453));
         setMinimumSize(new java.awt.Dimension(501, 453));
-<<<<<<< HEAD
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-=======
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(174, 203, 248));
         jLabel1.setText("Ajouter Personnel");
 
-<<<<<<< HEAD
-=======
-        jButtonFermer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/fermerFenetre.png"))); // NOI18N
-
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,19 +67,13 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(158, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-<<<<<<< HEAD
                 .addGap(155, 155, 155))
-=======
-                .addGap(167, 167, 167)
-                .addComponent(jButtonFermer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-<<<<<<< HEAD
                 .addContainerGap())
         );
 
@@ -110,12 +83,6 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         jPanel2.setPreferredSize(new java.awt.Dimension(501, 403));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-=======
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
         jLabel8.setText("Nom:");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -126,9 +93,19 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
 
         nomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         nomPersonnel.setText("Nom");
+        nomPersonnel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nomPersonnelFocusGained(evt);
+            }
+        });
 
         prenomPersonnel.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         prenomPersonnel.setText("Prénom");
+        prenomPersonnel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                prenomPersonnelFocusGained(evt);
+            }
+        });
 
         jComboBoxFonction.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
@@ -140,7 +117,6 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             }
         });
 
-<<<<<<< HEAD
         jPanel11.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
@@ -148,26 +124,6 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
         jLabel2.setPreferredSize(new java.awt.Dimension(362, 20));
         jPanel11.add(jLabel2, java.awt.BorderLayout.CENTER);
-=======
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
-        jLabel2.setText("Medical Imaging Technology - Radiology Information System Exploitation   ");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 64, Short.MAX_VALUE)
-                .addComponent(jLabel2))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(20, 20, 20))
-        );
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sir/ui/Ressources/ajouterPatientGrand.png"))); // NOI18N
 
@@ -177,26 +133,12 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-<<<<<<< HEAD
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-=======
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel8)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -212,15 +154,11 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-<<<<<<< HEAD
                         .addGap(48, 48, 48)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
-                        .addGap(60, 60, 60)
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(nomPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,42 +171,16 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
                             .addComponent(jComboBoxFonction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
                         .addGap(39, 39, 39)
-<<<<<<< HEAD
                         .addComponent(jButtonEnregistrer)
                         .addGap(96, 96, 96)))
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
-=======
-                        .addComponent(jButtonEnregistrer))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnregistrerActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
         boolean res = Factory.creerStaff(nomPersonnel.getText(), prenomPersonnel.getText(), (Function) jComboBoxFonction.getSelectedItem());
         if (res == TRUE){
             System.out.println("Ajout");
@@ -291,10 +203,6 @@ public class AjouterPersonnel extends javax.swing.JPanel implements java.beans.C
         prenomPersonnel.setText("");
     }//GEN-LAST:event_prenomPersonnelFocusGained
 
-=======
-    }//GEN-LAST:event_jButtonEnregistrerActionPerformed
-
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonEnregistrer;

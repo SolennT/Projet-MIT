@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package sir.nf;
-<<<<<<< HEAD
 
 import java.sql.*;
-=======
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -18,7 +16,6 @@ import java.util.Calendar;
  * @author axelm
  */
 public class Factory {
-<<<<<<< HEAD
 
     public static boolean creerPatient(String name, String surname, Gender gender, String address, Dates birthday, int id_SIH) {
         boolean j = false;
@@ -376,28 +373,12 @@ public class Factory {
         return pat;
     }
 
-=======
-    public static DMR creerDMR(Patient p){
-        DMR dmr = new DMR(p);
-        return dmr;
-    }  
-    public static Patient creerPatient(String name, String surname, Gender gender, String address, Date birthday){
-        Patient p = new Patient (name, surname, gender, address, birthday);
-        return p;
-    }
-    public static Examen creerExam(Date date, ExamenType type, MedicalStaff prescripteur, MedicalStaff resposableRadio){
-        Examen exam = new Examen(date, type, prescripteur,resposableRadio);
-        return exam;
-    }
-    
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 //    public static Examen creerExam(ExamenType type, MedicalStaff prescripteur, MedicalStaff resposableRadio){
 //        DateFormat dateFormat = new SimpleDateFormat();
 //        Calendar date = Calendar.getInstance();
 //        Examen e = new Examen(date, type,resposableRadio);
 //        return e;
 //    }
-<<<<<<< HEAD
     public static boolean creerStaff(String name, String prenom) {
         boolean j = false;
         Function statut = Function.Exterieur;
@@ -657,11 +638,6 @@ public class Factory {
         }
 
         return liste;
-=======
-    public static MedicalStaff creerStaff(String name, String surname, Function function){
-        MedicalStaff m=new MedicalStaff(name, surname, function);
-        return m;
->>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
     }
 
     public static ArrayList<DMR> rechercheListID(ArrayList<DMR> listPatients, int id) {
