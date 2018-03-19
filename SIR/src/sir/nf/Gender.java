@@ -13,6 +13,7 @@ package sir.nf;
  *
  */
 public enum Gender {
+<<<<<<< HEAD
     H("Homme"),
     F("Femme"),
     A("Autre"), 
@@ -23,4 +24,10 @@ public enum Gender {
     private Gender(String libelle) {
         this.libelle = libelle;
     }
+=======
+    M,
+    F,
+    Other
+    ;
+>>>>>>> 31a58b45bd02c9bf3572c85069b991ff81f9cf12
 }

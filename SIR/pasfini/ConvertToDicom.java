@@ -5,98 +5,117 @@
 package sir.nf;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import org.dcm4che3.data.Attributes;
+import org.dcm4che3.data.Sequence;
 import org.dcm4che3.data.Tag;
+import org.dcm4che3.data.UID;
 import org.dcm4che3.data.VR;
 import org.dcm4che3.io.DicomOutputStream;
+import org.dcm4che3.util.UIDUtils;
 
 public class ConvertToDicom {
 
-    /**
-     * Méthode permettant la conversion d'une image au format P2 vers le format DICOM
-     * Prend en paramètre le ficher d'entrée et de sortie, ainsi que les données patient et de l'examen nécéssaire à remplir
-     * les tags d'informations DICOM.
-     *
-     */
-    public void fileToDcm(File file, File fileOutput, String nomPatient, String prenomPatient, Date dateNaissance, String genre, String idPatient, Date date, String typeExamen, String compteRendu) {
+    private static int jpgLen;
+    private String transferSyntax = UID.JPEGBaseline1;
+
+    public ConvertToDicom(File file, File fileOutput, String nomPatient, String prenomPatient, Date dateNaissance, String genre, String idPatient, Date date, String typeExamen, String compteRendu, String RespoRadio) {
         try {
-            //Lecture de l'image placé en paramètre (png,jpeg,pgm) --> PGM, NetPPM P2
+            jpgLen = (int) file.length();
+
             BufferedImage img = ImageIO.read(file);
             if (img == null) {
-                throw new Exception("Fichier Invalide");
+                throw new Exception("Invalid file.");
             }
 
-            //Un fichier DICOM est constitué de nombreux champs, ou Tag, qui doivent être remplis pour créer le dcm
-            //La première étape est la création du FileMetaInformation, pour les propriétés du dcm
-            Attributes FMI = new Attributes();
+            int colorComponents = img.getColorModel().getNumColorComponents();
+            int bitsPerPixel = img.getColorModel().getPixelSize();
+            int bitsAllocated = (bitsPerPixel / colorComponents);
+            int samplesPerPixel = colorComponents;
 
-            FMI.setString(Tag.FileMetaInformationVersion, VR.OB, "1");
-            FMI.setString(Tag.TransferSyntaxUID, VR.UI, "1.2.840.10008.1.2.1");
-            FMI.setString(Tag.ImplementationVersionName, VR.SH, "DCM4CHE3");
-
-            //Les autres champs sont remplis et notamment quelues caractéristiques
             Attributes dicom = new Attributes();
-
             dicom.setString(Tag.SpecificCharacterSet, VR.CS, "ISO_IR 100");
+            dicom.setString(Tag.PhotometricInterpretation, VR.CS, samplesPerPixel == 3 ? "YBR_FULL_422" : "MONOCHROME2");
+
+            dicom.setInt(Tag.SamplesPerPixel, VR.US, samplesPerPixel);
+            dicom.setInt(Tag.PlanarConfiguration, VR.US, 0);
+            dicom.setInt(Tag.Rows, VR.US, img.getHeight());
+            dicom.setInt(Tag.Columns, VR.US, img.getWidth());
+            dicom.setInt(Tag.BitsAllocated, VR.US, bitsAllocated);
+            dicom.setInt(Tag.BitsStored, VR.US, bitsAllocated);
+            dicom.setInt(Tag.HighBit, VR.US, bitsAllocated - 1);
+            dicom.setInt(Tag.PixelRepresentation, VR.US, 0);
+
+            dicom.setDate(Tag.InstanceCreationDate, VR.DA, new Date());
+            dicom.setDate(Tag.InstanceCreationTime, VR.TM, new Date());
+
+            dicom.setString(Tag.StudyInstanceUID, VR.UI, UIDUtils.createUID());
+            dicom.setString(Tag.SeriesInstanceUID, VR.UI, UIDUtils.createUID());
+            dicom.setString(Tag.SOPInstanceUID, VR.UI, UIDUtils.createUID());
+            dicom.setString(Tag.StudyInstanceUID, VR.UI, UIDUtils.createUID());
+            dicom.setString(Tag.SeriesInstanceUID, VR.UI, UIDUtils.createUID());
+            dicom.setString(Tag.SOPInstanceUID, VR.UI, UIDUtils.createUID());
+
             dicom.setString(Tag.ImageType, VR.CS, "ORIGINAL\\PRIMARY");
             dicom.setString(Tag.SOPClassUID, VR.UI, "1.2.840.10008.5.1.4.1.1.7");
             dicom.setDate(Tag.StudyDate, VR.DA, date);
             dicom.setDate(Tag.SeriesDate, VR.DA, date);
             dicom.setDate(Tag.AcquisitionDate, VR.DA, date);
             dicom.setString(Tag.AccessionNumber, VR.SH, "LienPacsBD");
-            dicom.setString(Tag.Modality, VR.CS, typeExamen); // [http://www.dicomlibrary.com/dicom/modality/]
-            dicom.setString(Tag.ConversionType, VR.CS, "WSD"); //[https://www.dabsoft.ch/dicom/3/C.8.6/]
+            dicom.setString(Tag.Modality, VR.CS, typeExamen);
+            dicom.setString(Tag.ConversionType, VR.CS, "WSD");
             dicom.setString(Tag.ResultsComments, VR.CS, compteRendu);
+            dicom.setString(Tag.PerformingPhysicianName, VR.PN, RespoRadio);
+            dicom.setString(Tag.AdmittingDiagnosesDescription, VR.LO, "CHUPP");
 
-            //Attributs et Tag convernant le patient
             String nom = nomPatient + " " + prenomPatient;
-            
             dicom.setString(Tag.PatientName, VR.PN, nom);
             dicom.setString(Tag.PatientID, VR.IS, idPatient);
             dicom.setDate(Tag.PatientBirthDate, VR.DA, dateNaissance);
             dicom.setString(Tag.PatientSex, VR.CS, genre);
 
-            dicom.setString(Tag.StudyID, VR.IS, "1");
-            dicom.setString(Tag.AcquisitionNumber, VR.IS, "1");
-            dicom.setString(Tag.InstanceNumber, VR.IS, "1");
+            Sequence seq = dicom.newSequence(Tag.AnatomicRegionSequence, 0);
+            Attributes dicom2 = new Attributes();
 
-            dicom.setInt(Tag.SamplesPerPixel, VR.US, 3);
-            dicom.setString(Tag.PhotometricInterpretation, VR.CS, "RGB");  // [https://www.dabsoft.ch/dicom/3/C.7.6.3.1.2/]
+            Attributes fmi = new Attributes();
 
-            dicom.setInt(Tag.PlanarConfiguration, VR.US, 0); // [https://www.medicalconnections.co.uk/kb/Planar_configuration]
-            dicom.setInt(Tag.Rows, VR.US, img.getHeight());
-            dicom.setInt(Tag.Columns, VR.US, img.getWidth());
-            dicom.setInt(Tag.BitsAllocated, VR.US, 8);
-            dicom.setInt(Tag.BitsStored, VR.US, 8);
-            dicom.setInt(Tag.HighBit, VR.US, 7);
-            dicom.setInt(Tag.PixelRepresentation, VR.US, 0); //[0 = non signé, 1 = signé]
+            fmi.setString(Tag.ImplementationVersionName, VR.SH, "DCM4CHE3");
+            fmi.setString(Tag.ImplementationClassUID, VR.UI, UIDUtils.createUID());
+            fmi.setString(Tag.TransferSyntaxUID, VR.UI, transferSyntax);
+            fmi.setString(Tag.MediaStorageSOPClassUID, VR.UI, transferSyntax);
+            fmi.setString(Tag.MediaStorageSOPInstanceUID, VR.UI, UIDUtils.createUID());
+            fmi.setString(Tag.FileMetaInformationVersion, VR.OB, "1");
+            fmi.setInt(Tag.FileMetaInformationGroupLength, VR.UL, dicom.size() + fmi.size());
 
-
-            // ATTR VIDE
-            //on peut maintenant remplir un nouveau fichier DICOM
             DicomOutputStream dos = new DicomOutputStream(fileOutput);
-            //on écrit les attributs dans le fichier Dicom 
-            dos.writeDataset(FMI, dicom);
+            dos.writeDataset(fmi, dicom);
+            dos.writeHeader(Tag.PixelData, VR.OB, -1);
+                    
+            dos.writeHeader(Tag.Item, null, 0);
+            
+            dos.writeHeader(Tag.Item, null, (jpgLen + 1) & ~1);
+            
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            DataInputStream dis = new DataInputStream(bis);
 
-            //création de l'attribut pixelData qui contient l'image 
-            byte[] data = new byte[img.getHeight() * img.getWidth() * 3];
-            int c = 0;
-            for (int j = 0; j < img.getHeight(); j++) {
-                for (int i = 0; i < img.getWidth(); i++) {
-                    byte col = (byte) (img.getRGB(i, j) & 255);
-                    data[c++] = col;
-                    data[c++] = col;
-                    data[c++] = col;
-                }
+            byte[] buffer = new byte[65536];
+            int b;
+            while ((b = dis.read(buffer)) > 0) {
+                dos.write(buffer, 0, b);
             }
-            //on remplit l'attribut pixel data du fichier Dicom
-            dos.writeAttribute(Tag.PixelData, VR.OW, data);
-            //on remplie l'entête du fichier Dicom
+            /*Finally, the Dicom Standard tells that we have to put a last Tag: 
+	      * a Sequence Delimiter Item (FFFE,E0DD) with length equals to zero.*/
+
+            if ((jpgLen & 1) != 0) {
+                dos.write(0);
+            }
             dos.writeHeader(Tag.SequenceDelimitationItem, null, 0);
-            //et on signale qu'on a terminé de remplir le fichier dicom
             dos.close();
 
         } catch (Exception e) {
@@ -105,4 +124,5 @@ public class ConvertToDicom {
         }
 
     }
+
 }
